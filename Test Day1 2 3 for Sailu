@@ -3,214 +3,214 @@ THE ULTIMATE LINUX COOKBOOK
 Choose the correct answer and place the A B C or D at the end of the question 
 
 (Chapter 1 – already done)
-What does the man command do in Linux?
+What does the man command do in Linux? (B)
 a) Shows the current manual printing status
 b) Displays the manual page for a command
 c) Manages network connections
 d) Moves files from one directory to another
-Which command will search for manual entries related to "copy files"?
+Which command will search for manual entries related to "copy files"? (B)
 a) man copy files
 b) man -k "copy files"
 c) man -search copy files
 d) man find copy
-What does man ls display?
+What does man ls display? (B)
 a) A list of files in the current directory
 b) The manual page for the ls command
 c) The last system log entries
 d) The hostname of the system
-Which option with man allows you to search for a keyword in all manual pages?
+Which option with man allows you to search for a keyword in all manual pages? (B)
 a) man -f
 b) man -k
 c) man -s
 d) man -p
-If you don’t know the exact command name, which option in man helps you search?
+If you don’t know the exact command name, which option in man helps you search? (C)
 a) -h
 b) -s
 c) -k
 d) -a
-What does the pwd command display?
+What does the pwd command display? (B)
 a) Password of the current user
 b) Current working directory path
 c) Permissions of the current directory
 d) Process working daemon list
-If your terminal shows /home/user/docs after running pwd, where are you?
+If your terminal shows /home/user/docs after running pwd, where are you? (B)
 a) In the root directory
 b) In the user’s documents directory
 c) In the /etc folder
 d) In the /var/log directory
-The output of pwd is always:
+The output of pwd is always: (A)
 a) The absolute path to the current directory
 b) A relative path from /
 c) The last command you executed
 d) The current username
-Which of these is a valid use of pwd?
+Which of these is a valid use of pwd? (B)
 a) Checking system uptime
 b) Finding out your exact location in the filesystem
 c) Listing all hidden files
 d) Viewing file sizes
-What does cd .. do?
+What does cd .. do? (C)
 a) Changes to the root directory
 b) Moves up one directory level
 c) Opens the last accessed file
 d) Changes to the desktop folder
-Which command takes you directly to your home directory?
+Which command takes you directly to your home directory? (A)
 a) cd /home
 b) cd or cd ~
 c) cd home
 d) cd user
-How can you return to the last directory you were in?
+How can you return to the last directory you were in? (A)
 a) cd ..
 b) cd last
 c) cd -
 d) cd previous
-Which cd usage is correct to go into /var/log?
+Which cd usage is correct to go into /var/log? (A)
 a) cd var/log
 b) cd /var/log
 c) cd ~/var/log
 d) cd log
-What does ls -a display?
+What does ls -a display? (B)
 a) Only directories
 b) All files including hidden ones
 c) Files sorted by access time
 d) Files larger than 1MB
-Which command shows file sizes in human-readable form?
+Which command shows file sizes in human-readable form? (A)
 a) ls -lh
 b) ls -hr
 c) ls -hs
 d) ls -ls
-To see all files in /etc/ in long listing format, which is correct?
+To see all files in /etc/ in long listing format, which is correct? (D)
 a) ls -l /etc/
 b) ls /etc/ -a
 c) ls -la /etc/
 d) Both a and c
-What does ls without any options show?
+What does ls without any options show? (B)
 a) Files sorted by date
 b) Files in alphabetical order (excluding hidden files)
 c) Files in reverse order
 d) Only directories
-What does the !! command do?
+What does the !! command do? (B)
 a) Runs the first command in history
 b) Runs the last command again
 c) Deletes all history
 d) Lists all history entries
-Which command will display only the last 20 commands?
+Which command will display only the last 20 commands? (B)
 a) history 20
 b) history | tail -20
 c) Both a and b
 d) Neither a nor b
-How can you run the command numbered 55 from your history?
+How can you run the command numbered 55 from your history? (A)
 a) history 55
 b) run 55
 c) !55
 d) exec 55
-What does history without arguments show?
+What does history without arguments show? (B)
 a) System logs
 b) Command history for the current shell session
 c) Last boot time
 d) List of all processes
 (Chapter 2 – Pantry Management)
-What does the touch command do if the file already exists?
+What does the touch command do if the file already exists? (B)
 a) Deletes the file
 b) Updates its timestamp
 c) Creates a duplicate
 d) Opens it for editing
-Which command creates two empty files file1.txt and file2.txt?
+Which command creates two empty files file1.txt and file2.txt? (C)
 a) touch file1.txt; file2.txt
 b) touch file1.txt file2.txt
 c) touch -n file1.txt file2.txt
 d) new file1.txt file2.txt
-To create a file named report.log, you would run:
+To create a file named report.log, you would run: (B)
 a) create report.log
 b) touch report.log
 c) mkfile report.log
 d) vi report.log
-Which command copies a file to another directory?
+Which command copies a file to another directory? (B)
 a) mv file.txt /path/
 b) cp file.txt /path/
 c) copy file.txt /path/
 d) dup file.txt /path/
-What option with cp copies directories recursively?
+What option with cp copies directories recursively? (B)
 a) -d
 b) -r
 c) -p
 d) -a
-Which command renames old.txt to new.txt?
+Which command renames old.txt to new.txt? (B)
 a) rename old.txt new.txt
 b) mv old.txt new.txt
 c) cp old.txt new.txt
 d) edit old.txt new.txt
-What does rm -rf /tmp/test do?
+What does rm -rf /tmp/test do? (A)
 a) Removes the directory and all contents without prompt
 b) Removes files interactively
 c) Restores deleted files
 d) Only deletes empty directories
-What is the safest way to delete data.txt with confirmation?
+What is the safest way to delete data.txt with confirmation? (A)
 a) rm -i data.txt
 b) rm data.txt
 c) rm -f data.txt
 d) delete data.txt
-Which command creates a directory including parent directories if missing?
+Which command creates a directory including parent directories if missing? (B)
 a) mkdir dir1
 b) mkdir -p dir1/subdir1
 c) newdir dir1/subdir1
 d) create dir1/subdir1
-Which command finds all .conf files in /etc?
+Which command finds all .conf files in /etc? (A)
 a) find /etc -type f -name ".conf"
 b) search /etc ".conf"
 c) locate /etc .conf
 d) grep -r ".conf" /etc
-Which find command searches case-insensitively for report.pdf in home?
+Which find command searches case-insensitively for report.pdf in home? (B)
 a) find ~ -name report.pdf
 b) find ~ -iname report.pdf
 c) find / -report.pdf
 d) find -ignore ~ report.pdf
 CHAPTER 3: FOOD PREP - READING AND EDITING TEXT
-What does the cat command do?
+What does the cat command do? (A)
 a) Displays contents of a file
 b) Deletes a file
 c) Changes file permissions
 d) Moves a file
-How do you display a file’s content with line numbers using cat?
+How do you display a file’s content with line numbers using cat? (A)
 a) cat -l filename
 b) cat -n filename
 c) cat -num filename
 d) cat -line filename
-What will cat file1.txt file2.txt do?
+What will cat file1.txt file2.txt do? (B)
 a) Copy file1 to file2
 b) Combine and display contents of both files
 c) Rename file1 to file2
 d) Delete both files
-Which command is best for viewing a long file page-by-page?
+Which command is best for viewing a long file page-by-page? (B)
 a) cat
 b) less
 c) head
 d) tail
-How do you quit the less command interface?
+How do you quit the less command interface? (C)
 a) q
 b) x
 c) ctrl+c
 d) exit
-What does the head -n 10 filename command do?
+What does the head -n 10 filename command do? (B)
 a) Displays last 10 lines
 b) Displays first 10 lines
 c) Displays 10 random lines
 d) Deletes first 10 lines
-Which command watches a file in real-time for new additions?
+Which command watches a file in real-time for new additions? (A)
 a) tail -f filename
 b) head -f filename
 c) cat -f filename
 d) less -f filename
-How do you search for the word "ERROR" inside a file log.txt with grep?
+How do you search for the word "ERROR" inside a file log.txt with grep? (C)
 a) grep ERROR log.txt
 b) grep -e ERROR log.txt
 c) grep -i ERROR log.txt
 d) grep ERROR -r log.txt
-Which grep option makes the search case-insensitive?
+Which grep option makes the search case-insensitive? (C)
 a) -c
 b) -n
 c) -i
 d) -v
-How do you show line numbers along with matching lines in grep?
+How do you show line numbers along with matching lines in grep? (N)
 a) grep -l pattern file
 b) grep -n pattern file
 c) grep -v pattern file
@@ -220,64 +220,64 @@ a) Shows lines containing #
 b) Shows lines NOT containing #
 c) Counts lines containing #
 d) Lists all files containing #
-What is the main purpose of the sed command?
+What is the main purpose of the sed command? (A)
 a) Search and replace text in files
 b) Compress files
 c) List files
 d) Display manual pages
-What does sed -i 's/old/new/g' file.txt do?
+What does sed -i 's/old/new/g' file.txt do? (B)
 a) Deletes lines containing 'old'
 b) Replaces all occurrences of 'old' with 'new' in file.txt in-place
 c) Prints lines containing 'old'
 d) Adds 'new' after 'old'
-How do you delete lines containing the word "DEBUG" using sed?
+How do you delete lines containing the word "DEBUG" using sed? (A)
 a) sed '/DEBUG/d' filename
 b) sed -d 'DEBUG' filename
 c) sed 'DEBUG' filename
 d) sed 'delete DEBUG' filename
 CHAPTER 4: KITCHEN RULES - PERMISSIONS AND OWNERSHIP
-What does chmod u+x script.sh do?
+What does chmod u+x script.sh do? (A)
 a) Adds execute permission for owner
 b) Removes write permission for group
 c) Changes owner to user
 d) Makes script.sh read-only
-What does chmod 755 file.txt mean?
+What does chmod 755 file.txt mean? (A)
 a) Owner: rwx, Group: r-x, Others: r-x
 b) Owner: r-x, Group: rwx, Others: r-x
 c) Owner: rw-, Group: rw-, Others: r--
 d) Owner: r--, Group: r--, Others: r--
-Which command recursively changes permissions for a directory?
+Which command recursively changes permissions for a directory? (B)
 a) chmod -r 755 /dir
 b) chmod -R 755 /dir
 c) chmod -a 755 /dir
 d) chmod 755 /dir/*
-What does chown newuser file.txt do?
+What does chown newuser file.txt do? (A)
 a) Changes owner of file.txt to newuser
 b) Changes group of file.txt to newuser
 c) Changes permissions of file.txt
 d) Deletes file.txt
-How do you change both owner and group of a file?
+How do you change both owner and group of a file? (B)
 a) chown user file.txt group
 b) chown user:group file.txt
 c) chown -g user file.txt
 d) chgrp user:group file.txt
-What does sudo do?
+What does sudo do? (B)
 a) Shows superuser documentation
 b) Runs a command as root (superuser)
 c) Switches user to root shell
 d) Deletes system files
-Which command edits /etc/hosts as root using vim?
+Which command edits /etc/hosts as root using vim? (B)
 a) vim /etc/hosts
 b) sudo vim /etc/hosts
 c) su vim /etc/hosts
 d) sudo edit /etc/hosts
 CHAPTER 5: CHECKING THE THERMOMETERS - SYSTEM MONITORING
-What does df -h show?
+What does df -h show? (B)
 a) CPU usage in human-readable format
 b) Disk free space in human-readable format
 c) Memory usage in bytes
 d) Directory listing
-How do you find out disk usage of the current directory?
+How do you find out disk usage of the current directory? (B)
 a) du -sh .
 b) df -sh .
 c) ls -sh .
@@ -287,27 +287,27 @@ a) du -ah . | sort -rh | head -n 10
 b) df -h | sort -rh | head -n 10
 c) ls -l | sort -rh | head -n 10
 d) find . -size +10M
-What does free -h show?
+What does free -h show? (C)
 a) Disk space usage
 b) Network traffic stats
 c) Memory and swap usage in human-readable form
 d) Running processes
-What does the top command display?
+What does the top command display? (B)
 a) The directory tree
 b) Real-time system processes and resource usage
 c) Network interfaces
 d) System logs
-How do you quit the top command interface?
+How do you quit the top command interface? (C)
 a) q
 b) exit
 c) ctrl+c
 d) ESC
-Which command lists all currently running processes?
+Which command lists all currently running processes? (A)
 a) ps aux
 b) ps -r
 c) proc list
 d) ps -l
-How to filter running processes for the word httpd?
+How to filter running processes for the word httpd? (B)
 a) ps aux | find "httpd"
 b) ps aux | grep "httpd"
 c) grep "httpd" | ps aux
