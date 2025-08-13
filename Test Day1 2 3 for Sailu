@@ -282,7 +282,7 @@ a) du -sh .
 b) df -sh .
 c) ls -sh .
 d) diskuse .
-Which command shows top 10 largest folders in the current directory?
+Which command shows top 10 largest folders in the current directory? (A)
 a) du -ah . | sort -rh | head -n 10
 b) df -h | sort -rh | head -n 10
 c) ls -l | sort -rh | head -n 10
