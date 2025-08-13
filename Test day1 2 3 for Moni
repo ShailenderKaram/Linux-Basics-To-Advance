@@ -165,149 +165,149 @@ b) find ~ -iname report.pdf
 c) find / -report.pdf
 d) find -ignore ~ report.pdf
 CHAPTER 3: FOOD PREP - READING AND EDITING TEXT
-What does the cat command do?
+What does the cat command do? {a}
 a) Displays contents of a file
 b) Deletes a file
 c) Changes file permissions
 d) Moves a file
-How do you display a file’s content with line numbers using cat?
+How do you display a file’s content with line numbers using cat? {b}
 a) cat -l filename
 b) cat -n filename
 c) cat -num filename
 d) cat -line filename
-What will cat file1.txt file2.txt do?
+What will cat file1.txt file2.txt do? {b}
 a) Copy file1 to file2
 b) Combine and display contents of both files
 c) Rename file1 to file2
 d) Delete both files
-Which command is best for viewing a long file page-by-page?
+Which command is best for viewing a long file page-by-page? {b}
 a) cat
 b) less
 c) head
 d) tail
-How do you quit the less command interface?
+How do you quit the less command interface? {c}
 a) q
 b) x
 c) ctrl+c
 d) exit
-What does the head -n 10 filename command do?
+What does the head -n 10 filename command do? {b}
 a) Displays last 10 lines
 b) Displays first 10 lines
 c) Displays 10 random lines
 d) Deletes first 10 lines
-Which command watches a file in real-time for new additions?
+Which command watches a file in real-time for new additions? {a}
 a) tail -f filename
 b) head -f filename
 c) cat -f filename
 d) less -f filename
-How do you search for the word "ERROR" inside a file log.txt with grep?
+How do you search for the word "ERROR" inside a file log.txt with grep? {a}
 a) grep ERROR log.txt
 b) grep -e ERROR log.txt
 c) grep -i ERROR log.txt
 d) grep ERROR -r log.txt
-Which grep option makes the search case-insensitive?
+Which grep option makes the search case-insensitive? {c}
 a) -c
 b) -n
 c) -i
 d) -v
-How do you show line numbers along with matching lines in grep?
+How do you show line numbers along with matching lines in grep? {d}
 a) grep -l pattern file
 b) grep -n pattern file
 c) grep -v pattern file
 d) grep -c pattern file
-What does grep -v "#" /etc/fstab do?
+What does grep -v "#" /etc/fstab do? {b}
 a) Shows lines containing #
 b) Shows lines NOT containing #
 c) Counts lines containing #
 d) Lists all files containing #
-What is the main purpose of the sed command?
+What is the main purpose of the sed command? {a}
 a) Search and replace text in files
 b) Compress files
 c) List files
 d) Display manual pages
-What does sed -i 's/old/new/g' file.txt do?
+What does sed -i 's/old/new/g' file.txt do? {b}
 a) Deletes lines containing 'old'
 b) Replaces all occurrences of 'old' with 'new' in file.txt in-place
 c) Prints lines containing 'old'
 d) Adds 'new' after 'old'
-How do you delete lines containing the word "DEBUG" using sed?
+How do you delete lines containing the word "DEBUG" using sed? {a}
 a) sed '/DEBUG/d' filename
 b) sed -d 'DEBUG' filename
 c) sed 'DEBUG' filename
 d) sed 'delete DEBUG' filename
 CHAPTER 4: KITCHEN RULES - PERMISSIONS AND OWNERSHIP
-What does chmod u+x script.sh do?
+What does chmod u+x script.sh do? {a}
 a) Adds execute permission for owner
 b) Removes write permission for group
 c) Changes owner to user
 d) Makes script.sh read-only
-What does chmod 755 file.txt mean?
+What does chmod 755 file.txt mean? {a}
 a) Owner: rwx, Group: r-x, Others: r-x
 b) Owner: r-x, Group: rwx, Others: r-x
 c) Owner: rw-, Group: rw-, Others: r--
 d) Owner: r--, Group: r--, Others: r--
-Which command recursively changes permissions for a directory?
+Which command recursively changes permissions for a directory? {b}
 a) chmod -r 755 /dir
 b) chmod -R 755 /dir
 c) chmod -a 755 /dir
 d) chmod 755 /dir/*
-What does chown newuser file.txt do?
+What does chown newuser file.txt do? {a}
 a) Changes owner of file.txt to newuser
 b) Changes group of file.txt to newuser
 c) Changes permissions of file.txt
 d) Deletes file.txt
-How do you change both owner and group of a file?
+How do you change both owner and group of a file? {b}
 a) chown user file.txt group
 b) chown user:group file.txt
 c) chown -g user file.txt
 d) chgrp user:group file.txt
-What does sudo do?
+What does sudo do? {b}
 a) Shows superuser documentation
 b) Runs a command as root (superuser)
 c) Switches user to root shell
 d) Deletes system files
-Which command edits /etc/hosts as root using vim?
+Which command edits /etc/hosts as root using vim? {b}
 a) vim /etc/hosts
 b) sudo vim /etc/hosts
 c) su vim /etc/hosts
 d) sudo edit /etc/hosts
 CHAPTER 5: CHECKING THE THERMOMETERS - SYSTEM MONITORING
-What does df -h show?
+What does df -h show? {b}
 a) CPU usage in human-readable format
 b) Disk free space in human-readable format
 c) Memory usage in bytes
 d) Directory listing
-How do you find out disk usage of the current directory?
+How do you find out disk usage of the current directory? {a}
 a) du -sh .
 b) df -sh .
 c) ls -sh .
 d) diskuse .
-Which command shows top 10 largest folders in the current directory?
+Which command shows top 10 largest folders in the current directory? {c}
 a) du -ah . | sort -rh | head -n 10
 b) df -h | sort -rh | head -n 10
 c) ls -l | sort -rh | head -n 10
 d) find . -size +10M
-What does free -h show?
+What does free -h show? {c}
 a) Disk space usage
 b) Network traffic stats
 c) Memory and swap usage in human-readable form
 d) Running processes
-What does the top command display?
+What does the top command display? {b}
 a) The directory tree
 b) Real-time system processes and resource usage
 c) Network interfaces
 d) System logs
-How do you quit the top command interface?
+How do you quit the top command interface? {c}
 a) q
 b) exit
 c) ctrl+c
 d) ESC
-Which command lists all currently running processes?
+Which command lists all currently running processes? {a}
 a) ps aux
 b) ps -r
 c) proc list
 d) ps -l
-How to filter running processes for the word httpd?
+How to filter running processes for the word httpd? {b}
 a) ps aux | find "httpd"
 b) ps aux | grep "httpd"
 c) grep "httpd" | ps aux
