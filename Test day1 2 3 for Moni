@@ -3,163 +3,163 @@ THE ULTIMATE LINUX COOKBOOK
 Choose the correct answer and place the A B C or D at the end of the question 
 
 (Chapter 1 – already done)
-What does the man command do in Linux?
+What does the man command do in Linux? {b}
 a) Shows the current manual printing status
 b) Displays the manual page for a command
 c) Manages network connections
 d) Moves files from one directory to another
-Which command will search for manual entries related to "copy files"?
+Which command will search for manual entries related to "copy files"? {b}
 a) man copy files
 b) man -k "copy files"
 c) man -search copy files
 d) man find copy
-What does man ls display?
+What does man ls display? {b}
 a) A list of files in the current directory
 b) The manual page for the ls command
 c) The last system log entries
 d) The hostname of the system
-Which option with man allows you to search for a keyword in all manual pages?
+Which option with man allows you to search for a keyword in all manual pages? {b}
 a) man -f
 b) man -k
 c) man -s
 d) man -p
-If you don’t know the exact command name, which option in man helps you search?
+If you don’t know the exact command name, which option in man helps you search? {a}
 a) -h
 b) -s
 c) -k
 d) -a
-What does the pwd command display?
+What does the pwd command display? {b}
 a) Password of the current user
 b) Current working directory path
 c) Permissions of the current directory
 d) Process working daemon list
-If your terminal shows /home/user/docs after running pwd, where are you?
+If your terminal shows /home/user/docs after running pwd, where are you? {b}
 a) In the root directory
 b) In the user’s documents directory
 c) In the /etc folder
 d) In the /var/log directory
-The output of pwd is always:
+The output of pwd is always: {a}
 a) The absolute path to the current directory
 b) A relative path from /
 c) The last command you executed
 d) The current username
-Which of these is a valid use of pwd?
+Which of these is a valid use of pwd? {b}
 a) Checking system uptime
 b) Finding out your exact location in the filesystem
 c) Listing all hidden files
 d) Viewing file sizes
-What does cd .. do?
+What does cd .. do? {b}
 a) Changes to the root directory
 b) Moves up one directory level
 c) Opens the last accessed file
 d) Changes to the desktop folder
-Which command takes you directly to your home directory?
+Which command takes you directly to your home directory? {b}
 a) cd /home
 b) cd or cd ~
 c) cd home
 d) cd user
-How can you return to the last directory you were in?
+How can you return to the last directory you were in? {a}
 a) cd ..
 b) cd last
 c) cd -
 d) cd previous
-Which cd usage is correct to go into /var/log?
+Which cd usage is correct to go into /var/log? {b}
 a) cd var/log
 b) cd /var/log
 c) cd ~/var/log
 d) cd log
-What does ls -a display?
+What does ls -a display? {b}
 a) Only directories
 b) All files including hidden ones
 c) Files sorted by access time
 d) Files larger than 1MB
-Which command shows file sizes in human-readable form?
+Which command shows file sizes in human-readable form? {a}
 a) ls -lh
 b) ls -hr
 c) ls -hs
 d) ls -ls
-To see all files in /etc/ in long listing format, which is correct?
+To see all files in /etc/ in long listing format, which is correct? {a} if you want to see hidden files too meanes answer is {a & c}
 a) ls -l /etc/
 b) ls /etc/ -a
 c) ls -la /etc/
 d) Both a and c
-What does ls without any options show?
+What does ls without any options show? {d}
 a) Files sorted by date
 b) Files in alphabetical order (excluding hidden files)
 c) Files in reverse order
 d) Only directories
-What does the !! command do?
+What does the !! command do? {b}
 a) Runs the first command in history
 b) Runs the last command again
 c) Deletes all history
 d) Lists all history entries
-Which command will display only the last 20 commands?
+Which command will display only the last 20 commands? {c}
 a) history 20
 b) history | tail -20
 c) Both a and b
 d) Neither a nor b
-How can you run the command numbered 55 from your history?
+How can you run the command numbered 55 from your history? {a}
 a) history 55
 b) run 55
 c) !55
 d) exec 55
-What does history without arguments show?
+What does history without arguments show? {b}
 a) System logs
 b) Command history for the current shell session
 c) Last boot time
 d) List of all processes
 (Chapter 2 – Pantry Management)
-What does the touch command do if the file already exists?
+What does the touch command do if the file already exists? {b}
 a) Deletes the file
 b) Updates its timestamp
 c) Creates a duplicate
 d) Opens it for editing
-Which command creates two empty files file1.txt and file2.txt?
+Which command creates two empty files file1.txt and file2.txt? {b}
 a) touch file1.txt; file2.txt
 b) touch file1.txt file2.txt
 c) touch -n file1.txt file2.txt
 d) new file1.txt file2.txt
-To create a file named report.log, you would run:
+To create a file named report.log, you would run: {b}
 a) create report.log
 b) touch report.log
 c) mkfile report.log
 d) vi report.log
-Which command copies a file to another directory?
+Which command copies a file to another directory? {b}
 a) mv file.txt /path/
 b) cp file.txt /path/
 c) copy file.txt /path/
 d) dup file.txt /path/
-What option with cp copies directories recursively?
+What option with cp copies directories recursively? {b}
 a) -d
 b) -r
 c) -p
 d) -a
-Which command renames old.txt to new.txt?
+Which command renames old.txt to new.txt? {b}
 a) rename old.txt new.txt
 b) mv old.txt new.txt
 c) cp old.txt new.txt
 d) edit old.txt new.txt
-What does rm -rf /tmp/test do?
-a) Removes the directory and all contents without prompt
+What does rm -rf /tmp/test do? {a}
+a) Removes the directory and all contents without prompt {}
 b) Removes files interactively
 c) Restores deleted files
 d) Only deletes empty directories
-What is the safest way to delete data.txt with confirmation?
+What is the safest way to delete data.txt with confirmation? {b}
 a) rm -i data.txt
 b) rm data.txt
 c) rm -f data.txt
 d) delete data.txt
-Which command creates a directory including parent directories if missing?
+Which command creates a directory including parent directories if missing? {b}
 a) mkdir dir1
 b) mkdir -p dir1/subdir1
 c) newdir dir1/subdir1
 d) create dir1/subdir1
-Which command finds all .conf files in /etc?
+Which command finds all .conf files in /etc? {a}
 a) find /etc -type f -name ".conf"
 b) search /etc ".conf"
 c) locate /etc .conf
 d) grep -r ".conf" /etc
-Which find command searches case-insensitively for report.pdf in home?
+Which find command searches case-insensitively for report.pdf in home? {b}
 a) find ~ -name report.pdf
 b) find ~ -iname report.pdf
 c) find / -report.pdf
