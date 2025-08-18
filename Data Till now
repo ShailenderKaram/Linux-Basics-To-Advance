@@ -1,0 +1,898 @@
+THE ULTIMATE LINUX COOKBOOK: FROM BASICS TO ADVANCED RECIPES
+=============================================================
+
+Introduction
+------------
+Welcome to your Linux command-line cookbook! 
+This guide isn't just a list of commands; it's a collection of practical "recipes" to solve real-world problems. 
+We've organized it into chapters, just like a cookbook, so you can easily find the solution you need. We will cover file management, 
+text processing, system monitoring, networking, and much more. Let's start cooking!
+
+
+=============================================================
+CHAPTER 1: THE KITCHEN BASICS - INTERACTING WITH YOUR SYSTEM
+=============================================================
+
+man - The Recipe Book
+---------------------
+Purpose: Displays the manual (the "man page") for any command. It's your most important tool.
+Use Case: You forget what an option for the `ls` command does.
+Examples:
+    # Get the manual for the 'ls' command
+    $ man ls
+
+    # Search for manuals related to a keyword (e.g., "copy files")
+    $ man -k "copy files"
+
+pwd - Where Am I?
+-----------------
+Purpose: Prints the name of your current working directory.
+Use Case: You've navigated through several folders and lost track of your current location.
+Example:
+    $ pwd
+    # Output might be: /home/username/Documents
+
+cd - Changing Location
+----------------------
+Purpose: Changes your current directory.
+Use Case: You need to move into a different folder to work with its files.
+Examples:
+    # Go to a specific directory
+    $ cd /var/log
+
+    # Go up one level
+    $ cd ..
+
+    # Go to your personal home directory (a shortcut)
+    $ cd ~
+    # Or even shorter:
+    $ cd
+
+    # Go to the last directory you were in
+    $ cd -
+
+ls - What's in Here?
+--------------------
+Purpose: Lists the files and directories in your current location.
+Use Case: You need to see the contents of a folder.
+Examples:
+    # Simple list of contents
+    $ ls
+
+    # Detailed list with permissions, owner, size, and date (long format)
+    $ ls -l
+
+    # Detailed list with human-readable file sizes (e.g., KB, MB)
+    $ ls -lh
+
+    # List all files, including hidden ones (which start with a '.')
+    $ ls -a
+
+    # Combine flags: detailed, human-readable, and all files
+    $ ls -lha
+
+    # List contents of a different directory
+    $ ls /etc/
+
+history - What Did I Just Do?
+-----------------------------
+Purpose: Shows a list of the commands you've previously run.
+Use Case: You ran a complex command yesterday and need to find it again.
+Examples:
+    # Show all previous commands
+    $ history
+
+    # Show the last 20 commands
+    $ history 20
+
+    # Run the last command again
+    $ !!
+
+    # Run command number 55 from your history list
+    $ !55
+
+
+=============================================================
+CHAPTER 2: PANTRY MANAGEMENT - WORKING WITH FILES & DIRECTORIES
+=============================================================
+
+touch - Creating Empty Containers
+---------------------------------
+Purpose: Creates a new, empty file. If the file already exists, it updates its timestamp.
+Use Case: You need to quickly create a configuration file before editing it.
+Example:
+    $ touch new_script.sh
+    $ touch report.txt
+
+cp - Making a Copy
+------------------
+Purpose: Copies files or directories.
+Use Case: You want to back up a configuration file before you make changes to it.
+Examples:
+    # Copy a file in the same directory
+    $ cp config.conf config.conf.bak
+
+    # Copy a file to another directory
+    $ cp report.pdf /home/username/Documents/
+
+    # Copy a directory and all its contents (recursively)
+    $ cp -r /var/log/app /home/username/log_backup
+
+    # Verbose copy: shows what is being copied
+    $ cp -v important.txt /mnt/backup/
+
+mv - Moving and Renaming
+------------------------
+Purpose: Moves or renames files and directories.
+Use Case: You downloaded a file with a generic name and want to rename it, or you need to move a file to a different folder.
+Examples:
+    # Rename a file
+    $ mv old_filename.txt new_filename.txt
+
+    # Move a file to a new directory
+    $ mv report.docx ~/Documents/
+
+    # Move multiple files into a directory
+    $ mv report.docx image.png ~/archive/
+
+rm - Throwing Things Away
+-------------------------
+Purpose: Removes (deletes) files and directories. WARNING: This is permanent! There is no trash bin.
+Use Case: You have temporary files or old backups you no longer need.
+Examples:
+    # Remove a single file
+    $ rm temp_file.txt
+
+    # Ask for confirmation before deleting
+    $ rm -i important_file.txt
+
+    # Forcefully remove a file without prompting
+    $ rm -f locked_file.txt
+
+    # Remove a directory and all its contents (recursive and forceful)
+    # BE EXTREMELY CAREFUL WITH THIS COMMAND!
+    $ rm -rf /path/to/old_project
+
+mkdir - Creating New Shelves
+----------------------------
+Purpose: Creates a new directory.
+Use Case: You're starting a new project and need a folder to store its files.
+Examples:
+    # Create a single directory
+    $ mkdir my_project
+
+    # Create a nested directory structure all at once
+    $ mkdir -p Project/src/assets/images
+
+find - Finding Any Ingredient
+-----------------------------
+Purpose: A powerful tool to search for files and directories based on name, size, type, modification date, and more.
+Use Case: You know a file named `report.pdf` exists somewhere on the system, but you don't know where.
+Examples:
+    # Find a file by name somewhere in your home directory (case-insensitive)
+    $ find ~ -iname "report.pdf"
+
+    # Find all directories named 'logs' anywhere on the system
+    $ find / -type d -name "logs"
+
+    # Find all files ending in .conf in the /etc directory
+    $ find /etc -type f -name "*.conf"
+
+    # Find all files larger than 100MB in your home directory
+    $ find ~ -size +100M
+
+    # Find all files modified in the last 24 hours
+    $ find . -mtime -1
+
+    # Find and execute a command on the results (e.g., delete all .tmp files)
+    $ find . -name "*.tmp" -exec rm {} \;
+
+
+=============================================================
+CHAPTER 3: FOOD PREP - READING AND EDITING TEXT
+=============================================================
+
+cat - Quick Peek
+----------------
+Purpose: Displays the entire content of a file on the screen. Best for short files.
+Use Case: You want to quickly view a small configuration file.
+Examples:
+    $ cat /etc/hostname
+
+    # Display content with line numbers
+    $ cat -n my_script.sh
+
+    # Combine two files and display the result
+    $ cat file1.txt file2.txt
+
+less - Reading a Long Recipe
+----------------------------
+Purpose: Displays the content of a file one screen at a time. Ideal for long files.
+Use Case: You need to read through a large log file.
+Example:
+    $ less /var/log/messages
+    # Inside less: Use arrow keys to scroll, 'q' to quit, '/' to search.
+
+head & tail - The First and Last Bites
+--------------------------------------
+Purpose: `head` shows the beginning of a file; `tail` shows the end.
+Use Case: You want to see the most recent entries in a log file (`tail`) or check the headers of a CSV file (`head`).
+Examples:
+    # Show the first 10 lines of a file
+    $ head /var/log/syslog
+
+    # Show the first 20 lines
+    $ head -n 20 /var/log/syslog
+
+    # Show the last 10 lines of a file
+    $ tail /var/log/syslog
+
+    # Show the last 50 lines
+    $ tail -n 50 /var/log/syslog
+
+    # The killer feature: Watch a file in real-time for new lines
+    $ tail -f /var/log/httpd/access_log
+
+grep - Searching for an Ingredient
+----------------------------------
+Purpose: Searches for a specific pattern of text inside files.
+Use Case: You need to find all lines containing the word "ERROR" in a log file.
+Examples:
+    # Search for a word in a file (case-sensitive)
+    $ grep "ERROR" /var/log/messages
+
+    # Case-insensitive search
+    $ grep -i "error" /var/log/messages
+
+    # Search recursively in a directory
+    $ grep -r "db_password" /etc/
+
+    # Show lines that DO NOT match the pattern
+    $ grep -v "#" /etc/fstab
+
+    # Show line numbers of matches
+    $ grep -n "root" /etc/passwd
+
+    # Count the number of matching lines
+    $ grep -c "Failed" /var/log/secure
+
+sed - The Food Processor
+------------------------
+Purpose: The "stream editor." It filters and transforms text. Most commonly used for find-and-replace.
+Use Case: You need to replace every instance of "development" with "production" in a configuration file.
+Examples:
+    # Replace the first occurrence of 'old' with 'new' on each line
+    $ sed -i 's/old/new/' file.txt
+
+    # Replace ALL occurrences of 'old' with 'new' (global replace)
+    $ sed 's/old/new/g' file.txt
+
+    # Edit the file directly (in-place). Creates a backup with .bak extension
+    $ sed -i.bak 's/database_dev/database_prod/g' config.php
+
+    # Delete lines containing a specific pattern
+    $ sed '/DEBUG/d' application.log
+
+
+=============================================================
+CHAPTER 4: KITCHEN RULES - PERMISSIONS AND OWNERSHIP
+=============================================================
+
+chmod - Setting Access Rules
+----------------------------
+Purpose: Changes the mode (permissions) of a file or directory.
+Permissions: `r` (read), `w` (write), `x` (execute).
+Owners: `u` (user/owner), `g` (group), `o` (others).
+Use Case: You've written a script and need to make it executable.
+Examples:
+    # Make a script executable for the owner
+    $ chmod u+x my_script.sh
+
+    # Give owner read/write and group read-only permissions
+    $ chmod u=rw,g=r file.txt
+
+    # Remove execute permission for everyone
+    $ chmod a-x sensitive_file
+
+    # Using numbers (octal mode): r=4, w=2, x=1
+    # chmod 755 means: owner=rwx(4+2+1=7), group=rx(4+0+1=5), other=rx(4+0+1=5)
+    $ chmod 755 my_script.sh
+
+    # Make permissions apply to a directory and everything inside it
+    $ chmod -R 644 /var/www/html
+
+chown - Changing the Chef
+-------------------------
+Purpose: Changes the owner and group of a file or directory.
+Use Case: You've placed a file in a web server's directory, and it needs to be owned by the web server user (`apache` or `nginx`).
+Examples:
+    # Change the owner of a file (must be root/sudo)
+    # sudo chown new_owner_name file.txt
+
+    # Change the owner and group at the same time
+    # sudo chown new_owner:new_group file.txt
+
+    # Recursively change ownership for a directory
+    # sudo chown -R nginx:nginx /var/www/html
+
+sudo - Acting as Head Chef
+--------------------------
+Purpose: Executes a command with superuser (root) privileges.
+Use Case: You need to perform an administrative task, like installing software or editing a system-wide configuration file.
+Examples:
+    # Install software using the package manager
+    $ sudo dnf install htop
+
+    # Edit a system file that your user doesn't own
+    $ sudo vim /etc/hosts
+
+
+=============================================================
+CHAPTER 5: CHECKING THE THERMOMETERS - SYSTEM MONITORING
+=============================================================
+
+df & du - Checking Storage Space
+--------------------------------
+Purpose: `df` (disk free) shows disk usage per filesystem. `du` (disk usage) shows the space used by specific directories.
+Use Case: Your server is running out of space, and you need to find out which partitions are full (`df`) and which folders are taking up the most space (`du`).
+Examples:
+    # Show disk usage in a human-readable format
+    $ df -h
+
+    # Show disk usage for the current directory (human-readable summary)
+    $ du -sh .
+
+    # Show the top 10 largest folders in the current directory
+    $ du -ah . | sort -rh | head -n 10
+
+free - Checking Memory
+----------------------
+Purpose: Displays the amount of free and used RAM and swap memory.
+Use Case: Your application is slow, and you suspect it's running out of memory.
+Example:
+    # Show memory in a human-readable format
+    $ free -h
+
+top - The Live Kitchen View
+---------------------------
+Purpose: Provides a real-time, dynamic view of running processes.
+Use Case: The system is slow, and you need to see which process is using all the CPU.
+Example:
+    $ top
+    # Inside top: 'P' to sort by CPU, 'M' to sort by Memory, 'q' to quit.
+
+ps - Listing the Kitchen Staff
+------------------------------
+Purpose: Shows a snapshot of the currently running processes.
+Use Case: You need to find the Process ID (PID) of an application so you can stop it.
+Examples:
+    # List all processes running on the system
+    $ ps aux
+
+    # Filter the process list to find a specific application
+    $ ps aux | grep "httpd"
+
+
+=============================================================
+CHAPTER 6: TAKING FOOD ORDERS - NETWORKING
+
+=============================================================
+
+ping - Is the Other Restaurant Open?
+------------------------------------
+Purpose: Checks if you can reach another machine on the network.
+Use Case: Your server can't connect to the database, and you want to see if the database server is online.
+Examples:
+    # Ping a server to check connectivity
+    $ ping google.com
+
+    # Send only 4 packets
+    $ ping -c 4 192.168.1.1
+
+ip - The Network Address Book
+-----------------------------
+Purpose: The modern tool for showing and manipulating network interfaces, routes, and tunnels. It replaces older commands like `ifconfig` and `route`.
+Use Case: You need to find your server's IP address.
+Examples:
+    # Show IP addresses for all interfaces
+    $ ip addr show
+    # A shorter version:
+    $ ip a
+
+    # Show the network routing table
+    $ ip route
+
+ssh - Securely Entering Another Kitchen
+---------------------------------------
+Purpose: Secure SHell. The standard for securely logging into and managing a remote Linux server.
+Use Case: You need to perform maintenance on a remote web server.
+Example:
+    # Connect to a remote server as 'username'
+    $ ssh username@remote-server.com
+
+scp - Securely Sending a Recipe
+-------------------------------
+Purpose: Secure CoPy. Copies files between computers over an SSH connection.
+Use Case: You need to upload your web application files from your laptop to your server.
+Examples:
+    # Copy a local file to a remote server
+    $ scp my-app.zip username@remote.server.com:/home/username/
+
+    # Copy a file from a remote server to your local machine
+    $ scp username@remote.server.com:/var/log/app.log .
+	
+
+Passwordless SSH Authentication from server1 → server2 (AWS Linux)
+-------------------------------
+
+1. Login to server1 as root
+   ssh root@server1
+
+2. Generate SSH key pair on server1
+   ssh-keygen -t rsa -b 4096
+   (Press Enter for all prompts)
+
+   Keys created:
+   - Private key: /root/.ssh/id_rsa
+   - Public key:  /root/.ssh/id_rsa.pub
+
+3. Copy public key to server2
+   ssh-copy-id -i ~/.ssh/id_rsa.pub root@server2
+
+   If ssh-copy-id not available, run:
+   cat ~/.ssh/id_rsa.pub | ssh root@server2 "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys && chmod 700 ~/.ssh"
+
+4. Verify permissions on server2
+   chmod 700 /root/.ssh
+   chmod 600 /root/.ssh/authorized_keys
+
+5. Test passwordless login
+   From server1:
+   ssh root@server2
+
+AWS Specific Notes:
+- Edit /etc/ssh/sshd_config on server2 if needed:
+     PermitRootLogin yes
+     PasswordAuthentication yes
+- Restart SSH: systemctl restart sshd
+- Ensure AWS Security Group allows port 22 between server1 and server2
+
+After setup, server1 → server2 as root will be passwordless.
+
+
+wget & curl - Downloading Ingredients
+-------------------------------------
+Purpose: Command-line tools for downloading files from the internet. `wget` is simpler for direct downloads, while `curl` is a more versatile data transfer tool.
+Use Case: You need to download an application's source code from a URL.
+Examples:
+    # Download a file with wget
+    $ wget https://wordpress.org/latest.tar.gz
+
+    # Download a file and save it with a different name
+    $ wget -O wp.tar.gz https://wordpress.org/latest.tar.gz
+
+    # Use curl to download a file
+    $ curl -O https://wordpress.org/latest.tar.gz
+
+    # Use curl to test a web API and see the headers
+    $ curl -I https://api.github.com
+
+
+=============================================================
+CHAPTER 7: ORDERING SUPPLIES - PACKAGE MANAGEMENT
+=============================================================
+
+dnf / yum - The RHEL Supply Manager
+-----------------------------------
+Purpose: `dnf` is the modern package manager for RHEL, CentOS, and Fedora. `yum` was its predecessor (on RHEL 8+, `yum` is just a link to `dnf`).
+Use Case: You need to install the Apache web server.
+Examples:
+    # Search for a package
+    $ sudo dnf search httpd
+
+    # Install a package
+    $ sudo dnf install httpd
+
+    # Remove a package
+    $ sudo dnf remove httpd
+
+    # Update a specific package
+    $ sudo dnf update httpd
+
+    # Update all packages on the system
+    $ sudo dnf update
+
+rpm - Inspecting the Package
+----------------------------
+Purpose: The underlying package system. You can use it to query information about installed packages.
+Use Case: You need to know which package installed the file `/etc/httpd/conf/httpd.conf`.
+Examples:
+    # Query which package a file belongs to
+    $ rpm -qf /etc/httpd/conf/httpd.conf
+
+    # List all files installed by a specific package
+    $ rpm -ql httpd
+
+
+=============================================================
+CHAPTER 8: STORING AND PACKING - ARCHIVES & COMPRESSION
+=============================================================
+
+tar - The Bundling Machine
+--------------------------
+Purpose: Tape ARchiver. Bundles multiple files and directories into a single `.tar` file. It does not compress by default.
+Mnemonic: `cvzf` -> Create Verbose GZipped File. `xvzf` -> EXtract Verbose GZipped File.
+Use Case: You need to back up your entire project directory into a single file.
+Examples:
+    # Create a gzipped tar archive of a directory
+    $ tar -cvzf my_project_backup.tar.gz /path/to/my_project
+
+    # Extract a gzipped tar archive
+    $ tar -xvzf my_project_backup.tar.gz
+
+    # List the contents of an archive without extracting it
+    $ tar -tvf my_project_backup.tar.gz
+
+zip & unzip - The Universal Packer
+----------------------------------
+Purpose: Creates and extracts `.zip` files, which are very common on Windows systems.
+Use Case: You need to send files to someone who uses Windows.
+Examples:
+    # Create a zip file from a directory
+    $ zip -r my_files.zip /path/to/my_files
+
+    # Unzip a file
+    $ unzip my_files.zip
+	
+	
+----------------------------------
+GZIP - Step by Step Guide
+
+1. What is gzip?
+   - gzip (GNU zip) is a command-line tool in Linux/Unix used to compress files.
+   - It reduces file size and creates files with a .gz extension.
+
+------------------------------------------------------
+2. Check if gzip is installed:
+   gzip --version
+
+   If not installed:
+   - RHEL/CentOS/Fedora:   yum install gzip -y
+   - Ubuntu/Debian:        sudo apt-get install gzip -y
+
+------------------------------------------------------
+3. Compress a file:
+   gzip data.txt
+
+   Result: data.txt.gz
+   Note: Original file is replaced.
+
+   To keep the original file:
+   gzip -k data.txt
+
+------------------------------------------------------
+4. Compress multiple files:
+   gzip file1.txt file2.txt file3.log
+
+   Each file will be compressed separately.
+
+------------------------------------------------------
+5. Maximum compression (slow but best):
+   gzip -9 data.txt
+
+   -1 = fastest, least compression
+   -9 = slowest, best compression
+
+------------------------------------------------------
+6. Uncompress a file:
+   gunzip data.txt.gz
+   OR
+   gzip -d data.txt.gz
+
+------------------------------------------------------
+7. View contents without unzipping:
+   zcat data.txt.gz
+
+------------------------------------------------------
+8. See compression stats:
+   gzip -l data.txt.gz
+
+------------------------------------------------------
+9. Compress a folder (directory):
+   gzip alone cannot compress folders directly.
+
+   First archive with tar, then compress:
+   tar -cvf myfolder.tar myfolder/
+   gzip myfolder.tar
+
+   Result: myfolder.tar.gz
+
+   Or in one command:
+   tar -czvf myfolder.tar.gz myfolder/
+
+------------------------------------------------------
+Summary of Useful Commands:
+   gzip file               -> compress file
+   gzip -k file            -> compress but keep original
+   gzip -9 file            -> best compression
+   gunzip file.gz          -> uncompress
+   zcat file.gz            -> view file without uncompress
+   tar -czvf folder.tar.gz folder/ -> compress a folder
+
+
+=============================================================
+CHAPTER 9: THE FINAL TOUCH - ADVANCED RECIPES
+=============================================================
+
+systemctl - The Master Switchboard
+----------------------------------
+Purpose: The main command for controlling the `systemd` init system, which manages services and system startup.
+Use Case: You installed a web server and need to start it and make sure it runs automatically when the server reboots.
+Examples:
+    # Start a service
+    $ sudo systemctl start httpd
+
+    # Stop a service
+    $ sudo systemctl stop httpd
+
+    # Restart a service
+    $ sudo systemctl restart httpd
+
+    # Check the status of a service
+    $ sudo systemctl status httpd
+
+    # Enable a service to start on boot
+    $ sudo systemctl enable httpd
+
+    # Disable a service from starting on boot
+    $ sudo systemctl disable httpd
+	
+	
+=============================================================
+CHAPTER 10: DISK PARTITIONING
+=============================================================
+ LINUX STORAGE MANAGEMENT
+ With Use Cases, Issues & Resolutions
+=================================================
+
+-----------------------------------------------
+1. DISK PARTITIONING USING FDISK
+-----------------------------------------------
+Step 1: Identify available disks
+    lsblk
+    fdisk -l
+
+Step 2: Open the disk (example: /dev/sdb)
+    fdisk /dev/sdb
+
+Step 3: Inside fdisk
+    n   -> Create new partition
+    p   -> Primary partition
+    e   -> Extended partition
+    w   -> Write changes and exit
+
+Step 4: Format partition
+    mkfs.ext2 /dev/sdb1
+    mkfs.ext3 /dev/sdb1
+    mkfs.ext4 /dev/sdb1
+    mkfs.xfs  /dev/sdb1
+
+Step 5: Mount partition
+    mkdir /mnt/data
+    mount /dev/sdb1 /mnt/data
+
+Use Case:
+    Suppose an application needs a dedicated storage partition 
+    for logs (/app/logs). Instead of mixing with root (/), 
+    you create a separate partition on /dev/sdb1 and mount it.
+
+Issue:
+    After reboot, partition is not available.
+Resolution:
+    Add entry to /etc/fstab so partition mounts automatically.
+
+-----------------------------------------------
+2. LVM (Logical Volume Manager)
+-----------------------------------------------
+Use Case:
+    - You have a DB server with growing data.
+    - Initially allocated 100GB.
+    - After 6 months, DB reaches 95% usage.
+    - Instead of downtime & repartitioning, 
+      you extend the LV online.
+
+Components:
+    PV = Physical Volume (/dev/sdb1)
+    VG = Volume Group (pool of disks)
+    LV = Logical Volume (usable storage)
+
+Steps:
+
+1. Create Physical Volume
+    pvcreate /dev/sdb1
+
+2. Create Volume Group
+    vgcreate myvg /dev/sdb1
+
+3. Create Logical Volume
+    lvcreate -L 20G -n mylv myvg
+
+4. Format Logical Volume
+    mkfs.xfs /dev/myvg/mylv
+
+5. Mount Logical Volume
+    mkdir /data
+    mount /dev/myvg/mylv /data
+
+6. Extend Logical Volume
+    lvextend -L +10G /dev/myvg/mylv
+    xfs_growfs /data   (for XFS)
+    resize2fs   (for EXT4)
+
+Real Time Issue:
+    - Application team complains “No space left on device”.
+    - df -h shows /data is 100% used.
+    - Root cause: LV too small.
+Resolution:
+    - Add new disk /dev/sdc
+    - pvcreate /dev/sdc
+    - vgextend myvg /dev/sdc
+    - lvextend -L +50G /dev/myvg/mylv
+    - xfs_growfs /data
+    - Now space increases without downtime.
+
+-----------------------------------------------
+3. /etc/fstab - PERMANENT MOUNTING
+-----------------------------------------------
+File: /etc/fstab
+Format:
+    <device>     <mount_point>   <fs_type>   <options>   <dump>   <pass>
+
+Example:
+    /dev/sdb1      /mnt/data     ext4    defaults    0 0
+    UUID=3f2d-45a2 /backup       xfs     defaults    0 0
+    /dev/myvg/mylv /data         xfs     defaults    0 2
+
+Explanation of Parameters:
+    <device>       -> Partition, LV, or UUID
+    <mount_point>  -> Directory to mount
+    <fs_type>      -> ext2, ext3, ext4, xfs
+    <options>      -> defaults, noexec, rw, ro
+    <dump>         -> Used for backups (0=off, 1=on)
+    <pass>         -> fsck order on boot (0=skip, 1=root, 2=others)
+
+Use Case:
+    - Ensures DB mount points (/data, /backup) are always mounted at boot.
+
+Real Time Issue:
+    - Server rebooted, /data not mounted.
+    - Application fails because path not available.
+Resolution:
+    - Correct /etc/fstab entry with UUID.
+    - Run `mount -a` to test syntax.
+
+-----------------------------------------------
+4. FILESYSTEM DIFFERENCES
+-----------------------------------------------
+EXT2:
+    - No journaling, fast but risky on crashes
+EXT3:
+    - Journaling added, safer than EXT2
+EXT4:
+    - Default for many distros, supports large volumes
+XFS:
+    - High performance, good for large files
+    - Default in RHEL7/8, cannot shrink
+
+Real Time Example:
+    - Oracle DB server running on EXT4.
+    - Migrated to XFS for better write performance.
+
+Issue:
+    - Tried shrinking XFS filesystem.
+    - Not supported.
+Resolution:
+    - Backup → Recreate FS with smaller size → Restore data.
+    - Or use EXT4 if shrink feature is critical.
+
+-----------------------------------------------
+5. COMMON REAL-TIME PROBLEMS & FIXES
+-----------------------------------------------
+1) Disk full on /var/log
+   - Move /var/log to LVM volume
+   - Update /etc/fstab
+
+2) Wrong fstab entry
+   - System fails to boot
+   - Boot in single-user mode, fix /etc/fstab
+
+3) Growing DB requirements
+   - Use LVM extend with no downtime
+
+4) Filesystem corruption
+   - Use fsck for ext2/3/4
+   - For XFS, use xfs_repair
+
+
+===============================================
+ BLKID vs LSBLK in Linux (RHEL/CentOS/Ubuntu)
+===============================================
+
+-----------------------------------------------
+1. BLKID
+-----------------------------------------------
+Command:
+    blkid
+
+Purpose:
+    - Prints block device attributes such as:
+      UUID, filesystem type, partition UUID, label.
+
+Example Output:
+    /dev/sda1: UUID="1234-ABCD" TYPE="xfs" PARTUUID="00011122-01"
+    /dev/sdb1: UUID="abcd-1234" TYPE="ext4" PARTUUID="00011122-02"
+
+Details:
+    UUID      = Universally Unique Identifier for the partition
+    TYPE      = Filesystem type (xfs, ext4, ext3, etc.)
+    LABEL     = Volume label (if set using e2label or xfs_admin)
+    PARTUUID  = Unique ID for partition
+
+Use Case:
+    - When editing /etc/fstab, always use UUID instead of /dev/sdX
+      because device names may change after reboot.
+    - Example fstab entry:
+        UUID=1234-ABCD   /data   ext4   defaults   0 2
+
+-----------------------------------------------
+2. LSBLK
+-----------------------------------------------
+Command:
+    lsblk
+
+Purpose:
+    - Displays block devices in a tree-like structure.
+    - Shows hierarchy of disks, partitions, and mount points.
+
+Example Output:
+    NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+    sda      8:0    0  100G  0 disk
+    ├─sda1   8:1    0   50G  0 part /
+    ├─sda2   8:2    0   40G  0 part /data
+    └─sda3   8:3    0   10G  0 part [SWAP]
+    sdb      8:16   0  200G  0 disk
+    └─sdb1   8:17   0  200G  0 part /backup
+
+Details:
+    NAME       = Disk/Partition name
+    SIZE       = Disk/Partition size
+    TYPE       = disk / part / lvm / rom
+    MOUNTPOINT = Where it is mounted (/, /data, etc.)
+
+Use Case:
+    - When adding a new disk (e.g., /dev/sdb), 
+      run lsblk to verify the disk is visible and 
+      check whether it has partitions or not.
+    - Helps confirm mount points after fstab changes.
+
+-----------------------------------------------
+3. QUICK DIFFERENCE
+-----------------------------------------------
+BLKID:
+    - Displays device attributes (UUID, FS type)
+    - Used for /etc/fstab configuration
+
+LSBLK:
+    - Displays disk structure and hierarchy
+    - Used for checking attached disks, partitions, LVMs
+
+-----------------------------------------------
+4. REAL-TIME SCENARIO
+-----------------------------------------------
+Step 1: Add a new disk (200GB) → /dev/sdb
+Step 2: Run lsblk → confirm /dev/sdb is detected
+Step 3: Partition /dev/sdb with fdisk
+Step 4: Format with ext4 → mkfs.ext4 /dev/sdb1
+Step 5: Run blkid → get UUID of /dev/sdb1
+Step 6: Add entry in /etc/fstab using UUID
+Step 7: Run mount -a → verify it mounts correctly
