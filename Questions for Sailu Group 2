@@ -1,0 +1,80 @@
+CHAPTER 6: Networking
+
+Q: How do you check if google.com is reachable from your server?
+Use Case: Debugging when web apps can’t fetch external APIs.
+
+Q: How do you limit a ping test to just 4 packets?
+Use Case: Quick connectivity test to a database server without flooding.
+
+Q: How do you check your server’s IP addresses?
+Use Case: While configuring Nginx to bind to a specific IP.
+
+Q: How do you view the routing table on your system?
+Use Case: Diagnosing why packets are not reaching a remote subnet.
+
+Q: How do you SSH into a server 192.168.0.10 with username admin?
+Use Case: Logging in to manage a production web server.
+
+Q: How would you securely copy backup.tar.gz from your laptop to /opt/backups/ on server 10.0.0.5?
+Use Case: Uploading backups before migration.
+
+Q: How do you download a log file app.log from a server to your local machine?
+Use Case: Developer needs logs from production for debugging.
+
+Q: How do you configure passwordless SSH between two servers?
+Use Case: Automating deployments with Ansible or Jenkins.
+
+Q: How do you test whether port 22 is open between two AWS servers?
+Use Case: Verifying Security Group rules for SSH.
+
+Q: How do you download the latest WordPress tarball using wget?
+Use Case: Setting up a fresh WordPress server.
+
+Q: How do you use curl to check HTTP headers of https://api.github.com?
+Use Case: Debugging API authentication or CORS issues.
+
+CHAPTER 7: Package Management
+
+Q: How do you search for the Apache webserver package on RHEL?
+Use Case: Finding the right package name before installing.
+
+Q: How do you install Apache using dnf?
+Use Case: Setting up a new webserver quickly.
+
+Q: How do you remove Apache from your system?
+Use Case: Freeing up resources on a server no longer serving web apps.
+
+Q: How do you update only the nginx package and not the whole system?
+Use Case: Security patching for critical services.
+
+Q: How do you update all installed packages at once?
+Use Case: Preparing a system for compliance/security audits.
+
+Q: How do you find which package installed /etc/httpd/conf/httpd.conf?
+Use Case: Identifying ownership of config files.
+
+Q: How do you list all files installed by the httpd package?
+Use Case: Checking which binaries and configs belong to Apache.
+
+CHAPTER 8: Archives & Compression
+
+Q: How do you compress /var/logs/app/ into a single tarball?
+Use Case: Archiving logs before rotation.
+
+Q: How do you extract backup.tar.gz into /tmp/restore/?
+Use Case: Restoring project files after a crash.
+
+Q: How do you list the contents of backup.tar.gz without extracting?
+Use Case: Confirming archive contents before restore.
+
+Q: How do you create a zip file site.zip from /var/www/html/?
+Use Case: Sending a website backup to a Windows user.
+
+Q: How do you unzip project.zip into /opt/project/?
+Use Case: Deploying source code sent by developers.
+
+Q: How do you compress a file data.csv with maximum compression using gzip?
+Use Case: Minimizing storage size for database exports.
+
+Q: How do you view contents of logs.gz without extracting?
+Use Case: Quickly checking compressed logs on a space-limited server.
