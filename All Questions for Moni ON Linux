@@ -1,0 +1,227 @@
+Chapter 1: Basics – Interacting with Your System (Q1–Q10)
+
+How do you quickly check the purpose of a command you forgot an option for?
+
+You ran a long command yesterday and want to re-run it today without retyping. How?
+
+After navigating deep into directories, how do you confirm your current path?
+
+How do you switch back to the previous directory?
+
+What’s the difference between cd ~ and cd -?
+
+How do you list all files including hidden ones?
+
+How do you list files with human-readable sizes and permissions?
+
+How do you run the last failed command again from history?
+
+How do you search for commands in history containing ssh?
+
+If a junior admin deletes a file, how can you find when it happened using history?
+
+Chapter 2: File & Directory Management (Q11–Q20)
+
+How do you create multiple nested directories at once?
+
+You need a placeholder file for logs. Which command is best?
+
+How do you copy a directory recursively while preserving attributes?
+
+How do you back up a config file before editing?
+
+You downloaded a file with the wrong name. How do you rename it?
+
+What is the safest way to delete files interactively?
+
+How do you delete all .tmp files in the current directory and subdirectories?
+
+An app fails because a required directory is missing. How do you create it along with parents?
+
+You want to move multiple reports into /archive. How?
+
+How do you find all files modified in the last 24 hours in /var/log?
+
+Chapter 3: Text Processing (Q21–Q30)
+
+How do you quickly check the contents of /etc/hostname?
+
+You need to read a 10MB log file page by page. Which command do you use?
+
+How do you check the first 15 lines of /etc/passwd?
+
+How do you continuously watch logs for new entries in real time?
+
+How do you find lines containing “ERROR” in app.log ignoring case?
+
+How do you count the number of “Failed password” attempts in /var/log/secure?
+
+How do you exclude commented lines (#) when viewing /etc/fstab?
+
+You want to replace “dev” with “prod” in a config file. Which command works?
+
+How do you delete all lines containing “DEBUG” in a log file?
+
+How do you combine two text files line by line into one file?
+
+Chapter 4: Permissions & Ownership (Q31–Q40)
+
+You wrote a script but can’t run it. How do you fix permissions?
+
+How do you set permissions so only the owner can read and write a file?
+
+How do you recursively remove execute permission from all files in /opt/data?
+
+What does chmod 755 mean in detail?
+
+A file in /var/www/html must be owned by nginx. How do you fix ownership?
+
+How do you change both owner and group at once?
+
+You need to ensure /data is accessible by group developers. How?
+
+How do you verify current ACLs applied on a file?
+
+You gave ACL access, but a user still can’t write. What’s the first thing you check?
+
+How do you grant group qa read-only access to /data/test.log without changing file ownership?
+
+Chapter 5: System Monitoring (Q41–Q50)
+
+A server is full. How do you find which folder is consuming the most space?
+
+How do you check memory usage in a human-readable format?
+
+How do you find the top 10 processes consuming the most CPU?
+
+How do you find which process is using port 8080?
+
+A process hangs. How do you kill it safely?
+
+How do you continuously watch CPU usage per core?
+
+What is the difference between df -h and du -sh?
+
+How do you check swap usage using system commands?
+
+How do you identify zombie processes?
+
+How do you check which user started a particular process?
+
+Chapter 6: Networking (Q51–Q60)
+
+How do you verify if google.com is reachable?
+
+How do you test only 5 ping packets?
+
+How do you check the server’s IP and routes?
+
+A web server is unreachable, but SSH works. How do you check if port 80 is open?
+
+How do you securely log in to a remote host with user admin?
+
+How do you copy a file from local to a remote server over SSH?
+
+How do you copy a file from remote to local?
+
+How do you enable passwordless SSH between two AWS Linux servers?
+
+How do you use curl to fetch only headers from a URL?
+
+How do you download a tarball with a custom filename using wget?
+
+Chapter 7: Package Management (Q61–Q65)
+
+How do you search for the Apache package in RHEL?
+
+How do you install httpd using dnf?
+
+How do you update all packages on a system?
+
+How do you find which package installed /etc/httpd/conf/httpd.conf?
+
+How do you list all files belonging to the nginx package?
+
+Chapter 8: Archives & Compression (Q66–Q72)
+
+How do you create a compressed tarball of /data?
+
+How do you extract a tarball into /tmp?
+
+How do you list contents of an archive without extracting?
+
+How do you create a zip archive of /home/user?
+
+How do you unzip project.zip into the current folder?
+
+How do you compress report.txt but keep the original file?
+
+How do you view the contents of data.txt.gz without extracting?
+
+Chapter 9: Advanced – Services & Systemctl (Q73–Q77)
+
+How do you start and enable nginx on boot?
+
+How do you restart sshd service safely?
+
+How do you check if crond is running?
+
+How do you disable a service from starting on boot?
+
+How do you check logs of a failed systemd service?
+
+Chapter 10: Disk Partitioning & LVM (Q78–Q83)
+
+How do you create a new partition on /dev/sdb?
+
+How do you format a partition with XFS?
+
+How do you make a mount permanent across reboots?
+
+How do you extend a logical volume by 20GB?
+
+A reboot happened and /data didn’t mount. What’s your fix?
+
+How do you check filesystem type of /dev/sdb1?
+
+Chapter 11: ACLs (Q84–Q87)
+
+How do you give user john rw access to /data/file.txt?
+
+How do you set default ACL so all new files in /shared are accessible by qa group?
+
+A user complains ACLs are not working after reboot. What do you check first?
+
+How do you remove all ACL entries from a file?
+
+Chapter 12: Swap Management (Q88–Q91)
+
+How do you check swap usage?
+
+How do you create a 4GB swap file?
+
+How do you permanently enable a swap file?
+
+How do you adjust swappiness to 10?
+
+Chapter 13: Users, Groups, & sudo (Q92–Q96)
+
+How do you create user ravi with a home directory?
+
+How do you add ravi to group devops?
+
+How do you lock a user account?
+
+How do you give a user permission to reboot the server without password?
+
+How do you check sudo access of a user?
+
+Chapter 14: SAR (System Activity Report) (Q97–Q100)
+
+How do you check per-core CPU usage every 5 seconds?
+
+How do you find which disk had high I/O yesterday at 2 PM?
+
+How do you monitor network errors with sar?
+
+How do you change SAR log retention to 30 days and store logs in /data/sarlogs?
