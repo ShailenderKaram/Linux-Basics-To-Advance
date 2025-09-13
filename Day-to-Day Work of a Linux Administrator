@@ -1,0 +1,117 @@
+🔹 Day-to-Day Work of a Linux Administrator
+
+A Linux Admin’s daily tasks usually fall into these categories:
+
+User & Access Management
+
+Creating, deleting, and modifying users and groups.
+
+Managing sudo privileges and ACLs.
+
+Enforcing password policies.
+
+File System & Storage Management
+
+Mounting new disks and configuring partitions/LVM.
+
+Monitoring disk usage (df, du).
+
+Managing quotas, backups, and archives.
+
+Process & System Monitoring
+
+Checking CPU, memory, and I/O performance (top, htop, sar).
+
+Identifying hung or zombie processes.
+
+Restarting crashed services.
+
+Networking
+
+Verifying connectivity (ping, traceroute, ip, netstat, ss).
+
+Configuring SSH access.
+
+Debugging firewall or routing issues.
+
+Package & Patch Management
+
+Installing, updating, and removing software (dnf, apt).
+
+Applying security patches regularly.
+
+Logs & Troubleshooting
+
+Reviewing /var/log/ files for errors.
+
+Using journalctl, grep, less to filter logs.
+
+Diagnosing failed services, application errors.
+
+Automation & Scheduling
+
+Writing shell scripts for repetitive tasks.
+
+Scheduling jobs with cron or systemd timers.
+
+Using rsync for backups and sync.
+
+Security & Compliance
+
+Setting proper permissions (chmod, chown).
+
+Configuring firewalls (iptables, firewalld).
+
+Monitoring failed login attempts.
+
+Backup & Recovery
+
+Taking regular backups with tar, rsync, scp.
+
+Restoring files or directories when requested.
+
+Ensuring DB and app backup policies are followed.
+
+Collaboration & Documentation
+
+Coordinating with developers for deployments.
+
+Writing runbooks, documenting fixes.
+
+Reporting system health to management.
+
+🔹 Examples of Day-to-Day Activities
+
+Checking morning system health reports (disk, CPU, memory).
+
+Adding a new user for a developer and giving them access to /project/.
+
+Investigating why /var/log filled up overnight and archiving old logs.
+
+Restarting Apache (systemctl restart httpd) after config change.
+
+Mounting a new 200GB disk for database growth.
+
+Creating a cron job to clean /tmp every Sunday.
+
+Downloading and applying security patches.
+
+Troubleshooting failed SSH login for a user.
+
+Using sar to confirm memory spike during peak traffic.
+
+Copying daily backups to a remote server using rsync.
+
+🔹 Typical Daily Checklist (Sample)
+
+Review monitoring dashboard (CPU, RAM, disk alerts).
+
+Check logs for errors (/var/log/messages, /var/log/secure).
+
+Respond to tickets (user access, disk full, app issues).
+
+Verify scheduled jobs (cron, backup scripts).
+
+Apply pending patches/security updates.
+
+Document all major changes.
