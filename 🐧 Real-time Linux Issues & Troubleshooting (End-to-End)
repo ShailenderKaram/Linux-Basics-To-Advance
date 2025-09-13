@@ -1,0 +1,288 @@
+🐧 Real-time Linux Issues & Troubleshooting (End-to-End)
+🔹 1. Disk Full – /var filled up overnight
+
+Issue: Application failed because logs could not be written.
+
+Investigation:
+
+df -h            # check which partition is full
+du -sh /var/*    # find which folder consumes space
+ls -lh /var/log  # check large log files
+
+
+Resolution:
+
+Compressed old logs: gzip /var/log/*.log.1
+
+Archived and moved to backup server: rsync -av /var/log/*.gz backup:/logs/
+
+Added logrotate configuration to prevent future issues.
+
+🔹 2. High CPU Usage – System slow
+
+Issue: Users complained app was very slow.
+
+Investigation:
+
+top -o %CPU       # identify top CPU consuming processes
+ps -ef | grep pid # confirm process details
+sar -u 5 5        # monitor CPU usage over time
+
+
+Resolution:
+
+Found a runaway Java process → killed it: kill -9 <PID>
+
+Restarted service via systemctl.
+
+Tuned JVM memory parameters to prevent recurrence.
+
+🔹 3. Memory Leak
+
+Issue: Swap usage keeps increasing; system becomes unresponsive.
+
+Investigation:
+
+free -h
+top -o %MEM
+ps aux --sort=-%mem | head
+
+
+Resolution:
+
+Found a Python app consuming 80% memory.
+
+Restarted app → systemctl restart app.service.
+
+Informed dev team to fix memory leak.
+
+Added monitoring alert on memory usage.
+
+🔹 4. Server Not Reachable via SSH
+
+Issue: Team unable to SSH into server.
+
+Investigation (via console or AWS/GCP console):
+
+systemctl status sshd
+ss -tulpn | grep 22
+firewall-cmd --list-ports
+
+
+Resolution:
+
+Restarted SSH: systemctl restart sshd
+
+Added firewall rule: firewall-cmd --add-port=22/tcp --permanent
+
+Checked /etc/ssh/sshd_config for PermitRootLogin.
+
+Verified security group rule on cloud (AWS).
+
+🔹 5. Permission Denied on File
+
+Issue: Developer couldn’t update /var/www/html/index.html.
+
+Investigation:
+
+ls -l /var/www/html/index.html
+getfacl /var/www/html/index.html
+
+
+Resolution:
+
+File was owned by root. Changed ownership:
+
+chown apache:apache /var/www/html/index.html
+chmod 664 /var/www/html/index.html
+
+
+Verified access.
+
+🔹 6. Service Down After Reboot
+
+Issue: Apache didn’t start automatically after reboot.
+
+Investigation:
+
+systemctl status httpd
+journalctl -xe | grep httpd
+
+
+Resolution:
+
+Fixed misconfigured httpd.conf.
+
+Enabled auto-start: systemctl enable httpd.
+
+Restarted service successfully.
+
+🔹 7. Crontab Job Not Running
+
+Issue: Backup script didn’t execute.
+
+Investigation:
+
+crontab -l
+grep CRON /var/log/cron
+
+
+Resolution:
+
+Found script had Windows-style line endings.
+
+Fixed with: dos2unix backup.sh.
+
+Corrected cron entry with absolute paths.
+
+Tested manually before re-adding to crontab.
+
+🔹 8. Mount Not Persistent After Reboot
+
+Issue: Extra disk unmounted after reboot.
+
+Investigation:
+
+lsblk
+cat /etc/fstab
+
+
+Resolution:
+
+Added mount entry in /etc/fstab:
+
+/dev/sdb1  /data  xfs  defaults  0 0
+
+
+Mounted manually: mount -a.
+
+🔹 9. High Load Average
+
+Issue: Server load > 20, while CPU is idle.
+
+Investigation:
+
+uptime
+iostat -x 1 5
+sar -d 1 5
+
+
+Resolution:
+
+Found heavy I/O on /dev/sdb.
+
+Tuned DB queries.
+
+Increased IOPS on cloud disk.
+
+🔹 10. SELinux Blocking Application
+
+Issue: App failed to bind to port 8080.
+
+Investigation:
+
+ausearch -m avc -ts recent
+getsebool -a | grep httpd
+
+
+Resolution:
+
+Allowed port with SELinux:
+
+semanage port -a -t http_port_t -p tcp 8080
+setsebool -P httpd_can_network_connect 1
+
+
+Restarted service.
+
+🔹 11. Kernel Panic After Update
+
+Issue: Server not booting.
+
+Investigation:
+
+Used recovery mode → grub2-editenv list.
+
+Booted into previous kernel.
+
+Resolution:
+
+Removed faulty kernel: dnf remove kernel-<version>.
+
+Set stable kernel as default: grub2-set-default.
+
+🔹 12. Application Port Already in Use
+
+Issue: Nginx failed to start.
+
+Investigation:
+
+ss -tulpn | grep 80
+
+
+Resolution:
+
+Found httpd running on port 80.
+
+Stopped Apache: systemctl stop httpd.
+
+Disabled on boot: systemctl disable httpd.
+
+Restarted Nginx.
+
+🔹 13. Rsync Backup Fails with Permission Denied
+
+Issue: Rsync job fails between servers.
+
+Investigation:
+
+Checked SSH access.
+
+Checked ownership of destination directory.
+
+Resolution:
+
+Fixed permissions with chown -R backupuser:backup /backup/.
+
+Enabled passwordless SSH keys.
+
+Retested rsync.
+
+🔹 14. User Locked Out
+
+Issue: User ravi unable to login.
+
+Investigation:
+
+passwd -S ravi
+faillog -u ravi
+
+
+Resolution:
+
+Found account locked after failed attempts.
+
+Unlocked: usermod -U ravi.
+
+Reset password.
+
+🔹 15. SAR Shows Network Errors
+
+Issue: Random packet loss reported.
+
+Investigation:
+
+sar -n DEV 1 5
+ethtool eth0
+
+
+Resolution:
+
+Found NIC errors.
+
+Restarted network interface.
+
+Requested hardware replacement.
+
+✅ These are real-world issues you’ll face as a Linux Admin.
+They cover end-to-end troubleshooting steps – starting from identifying the problem → investigation → applying fix.
