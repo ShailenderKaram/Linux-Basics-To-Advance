@@ -896,3 +896,963 @@ Step 4: Format with ext4 → mkfs.ext4 /dev/sdb1
 Step 5: Run blkid → get UUID of /dev/sdb1
 Step 6: Add entry in /etc/fstab using UUID
 Step 7: Run mount -a → verify it mounts correctly
+
+===============================================
+ CHAPTER 11: ACCESS CONTROL LIST (ACL) IN LINUX - COMPLETE
+===============================================
+
+-----------------------------------------------
+1. WHAT IS ACL?
+-----------------------------------------------
+- ACL (Access Control List) provides fine-grained 
+  permissions beyond standard Linux permissions 
+  (rwx for owner, group, others).
+
+- With ACL you can give different permissions to 
+  multiple users or groups on the same file/dir.
+
+-----------------------------------------------
+2. ENABLING ACL
+-----------------------------------------------
+- Most modern Linux file systems (ext3, ext4, xfs) 
+  support ACL by default.
+
+- Check if mounted with ACL:
+    mount | grep acl
+
+- If not enabled, update /etc/fstab:
+    UUID=xxxx-xxxx  /data  ext4  defaults,acl  0 0
+
+- Remount filesystem:
+    mount -o remount,acl /data
+
+-----------------------------------------------
+3. IMPORTANT ACL COMMANDS
+-----------------------------------------------
+1) Getfacl  -> View ACL of a file/directory
+   getfacl filename
+
+2) Setfacl  -> Set ACL permissions
+   setfacl -m u:username:rwx filename
+   setfacl -m g:groupname:rx filename
+
+3) Remove ACL
+   setfacl -x u:username filename
+
+4) Default ACL (for directories)
+   setfacl -m d:u:username:rwx /data
+
+5) For Recercive -R 
+   setfacl -R d:u:username:rwx /data
+   (Ensures new files/dirs inside inherit ACL)
+   
+6) for all permissions remove use -back
+
+setfacl -b /data
+
+-----------------------------------------------
+4. EXAMPLES
+-----------------------------------------------
+Example 1: Granting user 'john' read/write on file
+    setfacl -m u:john:rw /data/report.txt
+
+Example 2: Granting group 'developers' read/execute
+    setfacl -m g:developers:rx /data/scripts.sh
+
+Example 3: Default ACL on directory
+    setfacl -m d:u:john:rwx /data/projects
+
+    (Any new file in /data/projects will allow john full access)
+
+Example 4: View ACL
+    getfacl /data/report.txt
+
+    Output:
+        # file: report.txt
+        # owner: root
+        # group: root
+        user::rw-
+        user:john:rw-
+        group::r--
+        mask::rw-
+        other::r--
+
+-----------------------------------------------
+5. REAL-TIME USE CASE
+-----------------------------------------------
+Scenario:
+    - Shared folder: /data/projects
+    - Requirement: Developers group should have 
+      read/write, testers group read-only,
+      but system admins full access.
+
+Solution:
+    1. Mount filesystem with ACL enabled
+    2. Apply ACLs:
+        setfacl -m g:developers:rw /data/projects
+        setfacl -m g:testers:r /data/projects
+        setfacl -m u:admin:rwx /data/projects
+    3. Verify with getfacl /data/projects
+
+-----------------------------------------------
+6. REAL-TIME ISSUES & RESOLUTIONS
+-----------------------------------------------
+Issue 1: ACL not working after reboot
+Cause:
+    - Mount option "acl" not added in /etc/fstab
+Resolution:
+    - Edit /etc/fstab and add "defaults,acl"
+    - Remount filesystem
+
+Issue 2: User cannot access file even after ACL
+Cause:
+    - "mask" in ACL is restricting permissions
+Resolution:
+    - Run getfacl and check "mask"
+    - Update mask:
+        setfacl -m m:rwx filename
+
+Issue 3: Application needs multiple owners
+Cause:
+    - Linux normally allows one owner & one group
+Resolution:
+    - Use ACL to assign multiple users/groups access
+    - Example:
+        setfacl -m u:john:rw /app/config.cfg
+        setfacl -m u:mary:rw /app/config.cfg
+
+-----------------------------------------------
+7. KEY POINTS TO REMEMBER
+-----------------------------------------------
+- Standard permissions (rwx) still apply.
+- ACL extends permissions, doesn’t replace them.
+- Always verify ACLs with getfacl.
+- Use default ACLs for shared directories.
+- ACL must be enabled on filesystem.
+
+
+
+===============================================
+ CHAPTER 12: SWAP MANAGEMENT IN LINUX
+===============================================
+
+-----------------------------------------------
+1. WHAT IS SWAP?
+-----------------------------------------------
+- Swap space is used as virtual memory when RAM is full.
+- If system runs out of RAM, inactive pages are moved to swap.
+- Can be a dedicated partition or a swap file.
+
+-----------------------------------------------
+2. CHECKING CURRENT SWAP
+-----------------------------------------------
+Command:
+    swapon --show
+    free -h
+
+Example Output:
+    NAME       TYPE   SIZE   USED  PRIO
+    /dev/sda2  partition  8G   2G   -2
+
+-----------------------------------------------
+3. CREATING SWAP PARTITION
+-----------------------------------------------
+Step 1: Partition disk
+    fdisk /dev/sdb  -> create partition type '82' (Linux swap)
+
+Step 2: Format as swap
+    mkswap /dev/sdb1
+
+Step 3: Enable swap
+    swapon /dev/sdb1
+
+Step 4: Make permanent (fstab entry)
+    /dev/sdb1   swap   swap   defaults   0 0
+
+-----------------------------------------------
+4. CREATING SWAP FILE
+-----------------------------------------------
+Step 1: Create empty file (example 4GB)
+    dd if=/dev/zero of=/swapfile bs=1G count=4
+
+Step 2: Secure file permissions
+    chmod 600 /swapfile
+
+Step 3: Format as swap
+    mkswap /swapfile
+
+Step 4: Enable swap
+    swapon /swapfile
+
+Step 5: Make permanent (fstab entry)
+    /swapfile   swap   swap   defaults   0 0
+
+-----------------------------------------------
+5. DISABLING SWAP
+-----------------------------------------------
+- Disable temporarily:
+    swapoff /dev/sdb1
+    swapoff /swapfile
+
+- Remove permanent entry from /etc/fstab
+
+-----------------------------------------------
+6. ADJUSTING SWAPPINESS
+-----------------------------------------------
+- Swappiness controls how aggressively kernel uses swap.
+- Value range: 0–100
+    0   = avoid swap as much as possible
+    60  = default in most distros
+    100 = swap very aggressively
+
+Check current:
+    cat /proc/sys/vm/swappiness
+
+Change temporarily:
+    sysctl vm.swappiness=10
+
+Permanent change:
+    Add to /etc/sysctl.conf
+    vm.swappiness = 10
+	
+	
+	sysctl -p for permanent 
+
+-----------------------------------------------
+7. REAL-TIME USE CASES
+-----------------------------------------------
+Use Case 1: Low memory server
+    - Server has 2GB RAM
+    - Apps need extra memory
+    - Create 2GB swap file to prevent crashes.
+
+Use Case 2: Performance tuning
+    - DB servers prefer minimal swap usage
+    - Set swappiness to 10
+
+Use Case 3: Cloud VMs
+    - Some cloud VMs (AWS EC2) come without swap
+    - Manually create swap file for stability.
+
+-----------------------------------------------
+8. REAL-TIME ISSUES & RESOLUTIONS
+-----------------------------------------------
+Issue 1: Swap not enabled after reboot
+Cause:
+    - fstab entry missing
+Resolution:
+    - Add swap partition/file entry in /etc/fstab
+
+Issue 2: System still slow even with swap
+Cause:
+    - Swap is much slower than RAM
+Resolution:
+    - Add more physical RAM if possible
+    - Reduce swappiness (to 10 or 20)
+
+Issue 3: "swapoff: device busy"
+Cause:
+    - Swap is in use
+Resolution:
+    - Free up memory or temporarily stop applications
+    - Then run swapoff
+
+Issue 4: Security risk with swap file
+Cause:
+    - Incorrect permissions on /swapfile
+Resolution:
+    - Always run: chmod 600 /swapfile
+
+
+=====================================================================
+Crontab in Linux - Detailed Notes with Examples & Real-time Issues
+=====================================================================
+
+1. What is Crontab?
+   - Crontab (CRON Table) is a Linux utility used to schedule tasks (commands or scripts) to run at specific times or intervals.
+
+2. Crontab Syntax:
+   ┌───────────── minute (0 - 59)
+   │ ┌───────────── hour (0 - 23)
+   │ │ ┌───────────── day of month (1 - 31)
+   │ │ │ ┌───────────── month (1 - 12)
+   │ │ │ │ ┌───────────── day of week (0 - 6) (Sunday=0)
+   │ │ │ │ │
+   * * * * *  <command>
+
+3. Crontab Commands:
+   - crontab -e   → Edit current user’s cron jobs
+   - crontab -l   → List cron jobs
+   - crontab -r   → Remove all cron jobs
+   - crontab -u username -e → Edit cron for a specific user (root only)
+
+4. Examples:
+   - Run a script every day at 2 AM:
+     0 2 * * * /home/user/backup.sh
+
+   - Run a script every Monday at 5 PM:
+     0 17 * * 1 /home/user/report.sh
+
+   - Run every 15 minutes:
+     */15 * * * * /home/user/health_check.sh
+
+   - Run every 1st of the month at midnight:
+     0 0 1 * * /home/user/monthly_cleanup.sh
+
+   - Redirect output to log file:
+     0 3 * * * /home/user/backup.sh >> /var/log/backup.log 2>&1
+
+5. Special Strings:
+   - @reboot     → Run once after reboot
+   - @daily      → Run once every day (same as 0 0 * * *)
+   - @hourly     → Run once every hour (same as 0 * * * *)
+   - @weekly     → Run once a week
+   - @monthly    → Run once a month
+
+6. Real-time Issues & Resolutions:
+   Issue 1: Script not running in crontab but works manually
+   - Reason: Environment variables in cron are limited (PATH issue).
+   - Fix: Use absolute paths for commands in the script (e.g., /usr/bin/python instead of python).
+
+   Issue 2: Output not captured
+   - Reason: By default, cron does not display output.
+   - Fix: Redirect output to log file:
+          */10 * * * * /home/user/script.sh >> /var/log/script.log 2>&1
+
+   Issue 3: Permission denied
+   - Reason: User doesn’t have permission to execute the script.
+   - Fix: Ensure script has executable permission → chmod +x script.sh
+
+   Issue 4: Cron job running multiple times
+   - Reason: Duplicate entries in crontab.
+   - Fix: Check with `crontab -l` and remove duplicates.
+
+   Issue 5: Crontab service not running
+   - Reason: Cron daemon is stopped.
+   - Fix: Start service → systemctl start crond (RHEL/CentOS) or systemctl start cron (Ubuntu).
+
+7. Real-time Use Cases:
+   - Automating database backups daily at midnight
+   - Running cleanup jobs weekly to delete old logs
+   - Sending server health reports every hour
+   - Restarting services after reboot automatically
+
+
+RSYNC - FILE SYNC / COPY TOOL
+-----------------------------
+
+1) Check if rsync is installed
+   On both source and destination servers:
+   $ rsync --version
+
+   If not installed:
+   On RHEL/CentOS:  yum install rsync -y
+   On Ubuntu/Debian: apt-get install rsync -y
+
+-----------------------------------------------------
+
+2) Basic Syntax
+   rsync [options] SOURCE DESTINATION
+
+-----------------------------------------------------
+
+3) Commonly Used Options
+   -v   : verbose (shows what is happening)
+   -a   : archive mode (preserves permissions, symlinks, timestamps)
+   -z   : compress during transfer (saves bandwidth)
+   -h   : human-readable output
+   -P   : shows progress and allows resume of interrupted transfers
+   -e   : specify ssh as remote shell
+
+-----------------------------------------------------
+
+4) Local Copy (same server)
+   Example: copy /data/files to /backup/files
+   $ rsync -avh /data/files/ /backup/files/
+
+-----------------------------------------------------
+
+5) Remote Copy (via SSH)
+   Example: copy from local to remote
+   $ rsync -avz /data/files/ user@remote:/backup/files/
+
+   Example: copy from remote to local
+   $ rsync -avz user@remote:/backup/files/ /data/files/
+
+-----------------------------------------------------
+
+6) Using Specific SSH Port
+   $ rsync -avz -e "ssh -p 2222" /data/files/ user@remote:/backup/files/
+
+-----------------------------------------------------
+
+7) Excluding Files/Dirs
+   $ rsync -avz --exclude 'tmp/' --exclude '*.log' /data/files/ user@remote:/backup/files/
+
+-----------------------------------------------------
+
+8) Dry Run (test before actual run)
+   $ rsync -avzn /data/files/ user@remote:/backup/files/
+
+-----------------------------------------------------
+
+9) Delete Extra Files on Destination
+   (Mirror source exactly)
+   $ rsync -avz --delete /data/files/ user@remote:/backup/files/
+
+-----------------------------------------------------
+
+10) Cron Job Example (daily sync at 1AM)
+   Edit crontab:
+   $ crontab -e
+   Add line:
+   0 1 * * * rsync -avz /data/files/ user@remote:/backup/files/ >> /var/log/rsync.log 2>&1
+
+-----------------------------------------------------
+
+TIPS:
+- Always try with --dry-run first to confirm.
+- Use trailing slash carefully:
+    /data/files/  -> copies contents only
+    /data/files   -> copies folder itself
+
+
+
+
+===============================================
+ CHAPTER 13: PROCESS MANAGEMENT IN LINUX
+===============================================
+
+-----------------------------------------------
+1. WHAT IS A PROCESS?
+-----------------------------------------------
+- A process is a running instance of a program.
+- Each process has a unique PID (Process ID).
+- Processes can run in foreground or background.
+
+-----------------------------------------------
+2. VIEWING PROCESSES
+-----------------------------------------------
+Command:
+    ps aux       -> Shows all processes
+    ps -ef       -> Full format listing
+    top          -> Real-time process monitoring
+    htop         -> Interactive process viewer (if installed)
+    pgrep NAME   -> Find PID by process name
+    pidof NAME   -> Find PID(s) of program
+
+Example:
+    ps -ef | grep httpd
+
+-----------------------------------------------
+3. FOREGROUND & BACKGROUND JOBS
+-----------------------------------------------
+- Run command in background:
+    command &
+
+- List background jobs:
+    jobs
+
+- Bring job to foreground:
+    fg %1
+
+- Move running process to background:
+    Ctrl+Z  -> suspend
+    bg      -> resume in background
+
+-----------------------------------------------
+4. KILLING PROCESSES
+-----------------------------------------------
+Command:
+    kill -9 <PID>     -> Force kill
+    kill -15 <PID>    -> Graceful termination
+    pkill -f process  -> Kill by name
+    killall name      -> Kill all processes by name
+
+Example:
+    kill -9 1234
+    pkill -f apache
+
+-----------------------------------------------
+5. PROCESS PRIORITY & NICE/RENICE
+-----------------------------------------------
+- Priority defines scheduling preference.
+- Niceness (-20 to 19):
+    -20 = highest priority
+    19  = lowest priority
+    0   = default
+
+Start process with nice value:
+    nice -n 10 command
+
+Change priority of running process:
+    renice -n -5 -p <PID>
+
+Example:
+    renice -n -10 -p 2345
+
+-----------------------------------------------
+6. DAEMONS & SERVICES
+-----------------------------------------------
+- Background processes that start at boot.
+
+Systemd based (RHEL7+):
+    systemctl start service
+    systemctl stop service
+    systemctl enable service
+    systemctl status service
+
+Example:
+    systemctl status sshd
+
+-----------------------------------------------
+7. REAL-TIME USE CASES
+-----------------------------------------------
+Use Case 1: High CPU utilization
+    - top shows a process consuming 99% CPU
+    - Solution: Identify PID → kill or renice
+
+Use Case 2: Application crash recovery
+    - Web server process crashed
+    - Restart service:
+        systemctl restart httpd
+
+Use Case 3: Long running jobs
+    - Start backups in background with nohup:
+        nohup tar -czf backup.tar.gz /data &
+
+Use Case 4: Ensure service starts after reboot
+    - Enable service with:
+        systemctl enable nginx
+
+-----------------------------------------------
+8. REAL-TIME ISSUES & RESOLUTIONS
+-----------------------------------------------
+Issue 1: Process hangs (zombie process)
+Cause:
+    - Process finished but parent didn’t clean it.
+Resolution:
+    - Kill parent process OR restart service.
+
+Issue 2: High memory consumption
+Cause:
+    - Application memory leak
+Resolution:
+    - Use "top" or "htop" to identify PID
+    - Restart application or service
+
+Issue 3: Process not starting at boot
+Cause:
+    - Service not enabled in systemd
+Resolution:
+    - Run:
+        systemctl enable <service>
+
+Issue 4: Permission denied to kill process
+Cause:
+    - Non-root user trying to kill root-owned process
+Resolution:
+    - Switch to root user or use sudo
+
+-----------------------------------------------
+9. MONITORING TOOLS
+-----------------------------------------------
+- top     = real-time CPU/mem usage
+- htop    = interactive process monitoring
+- vmstat  = memory, CPU, I/O stats
+- iostat  = disk I/O stats
+- sar     = system activity report
+
+
+=============================================================
+System Activity Report (SAR) - Complete Guide
+
+===============================================
+🔹 What is SAR?
+- SAR (System Activity Report) is a command-line tool used in Linux/Unix.
+- It comes from the sysstat package.
+- Purpose: Collect, report, and save system performance data.
+
+It provides stats for:
+  - CPU usage
+  - Memory (RAM & swap)
+  - Disk I/O
+  - Network traffic
+  - Load averages
+  - Kernel activities
+  - More...
+
+===============================================
+🔹 Why is SAR used?
+- To monitor system health in real time.
+- To troubleshoot performance issues.
+- To analyze historical performance.
+- For capacity planning.
+
+===============================================
+🔹 Installation
+On RHEL/CentOS/Rocky/Oracle Linux:
+  sudo yum install sysstat -y
+
+On Ubuntu/Debian:
+  sudo apt update
+  sudo apt install sysstat -y
+
+===============================================
+🔹 Enable & Configure SAR
+1. Enable the service:
+   RHEL/CentOS:
+     sudo systemctl enable --now sysstat
+
+   Ubuntu/Debian:
+     sudo nano /etc/default/sysstat
+     ENABLED="true"
+     sudo systemctl enable --now sysstat
+
+2. Check status:
+   systemctl status sysstat
+
+3. Logs location:
+   /var/log/sa/ (files: saXX, sarXX)
+
+===============================================
+🔹 Usage - Important Commands
+
+✅ CPU Usage:
+  sar -u 1 5          # overall CPU
+  sar -P ALL 1 5      # per-core CPU
+  
+The 1 5 in SAR commands are time arguments:
+
+The first number (1) = interval in seconds → how often SAR should take a reading.
+
+The second number (5) = count → how many times SAR should repeat the reading.
+
+✅ Memory Usage:
+  sar -r 1 5          # memory usage
+  sar -S 1 5          # swap activity
+
+✅ Disk I/O:
+  sar -d 1 5          # disk read/write stats
+  sar -p -d 1 5       # detailed disk stats
+
+✅ Network Usage:
+  sar -n DEV 1 5      # network traffic
+  sar -n EDEV 1 5     # network errors
+
+✅ Load Average:
+  sar -q 1 5
+
+✅ Kernel Tables:
+  sar -v 1 5
+
+✅ All-in-one report:
+  sar -A
+
+===============================================
+🔹 Checking Past Logs
+Example: Check CPU usage yesterday at 3 AM
+  sar -u -f /var/log/sa/sa27 -s 03:00:00 -e 03:10:00
+
+===============================================
+🔹 Summary (Quick Reference)
+- Install: yum/apt install sysstat
+- Start service: systemctl enable --now sysstat
+- Logs: /var/log/sa/saXX
+- CPU: sar -u
+- Memory: sar -r
+- Disk: sar -d
+- Network: sar -n DEV
+- Load: sar -q
+- All: sar -A
+
+
+
+===============================================
+🔹 SAR Log Retention and Path
+
+Default Log Path:
+  /var/log/sa/
+    - saXX  -> binary data files (XX = day of month)
+    - sarXX -> human-readable reports
+
+-----------------------------------------------
+🔹 Retention Period (How long SAR keeps logs)
+
+Configuration file location:
+  RHEL/CentOS/Rocky/Oracle Linux:
+    /etc/sysconfig/sysstat
+
+  Ubuntu/Debian:
+    /etc/default/sysstat
+
+Important parameters:
+
+1) HISTORY
+   - Defines number of days to keep logs.
+   Example:
+     HISTORY=7     # Keep 7 days
+     HISTORY=30    # Keep 30 days
+
+2) SA_DIR
+   - Defines where SAR stores logs.
+   Example:
+     SA_DIR=/var/log/sa        # Default path
+     SA_DIR=/data/sysstat      # Custom path
+
+   (Make sure directory exists and has correct permissions)
+     sudo mkdir -p /data/sysstat
+     sudo chown sysstat:sysstat /data/sysstat
+
+3) ENABLED (Ubuntu/Debian only)
+   ENABLED="true"
+
+-----------------------------------------------
+🔹 Apply Changes
+After editing config file:
+  sudo systemctl restart sysstat
+
+-----------------------------------------------
+🔹 How it works
+- SAR collects data every 10 minutes by default.
+- Logs saved in SA_DIR (/var/log/sa by default).
+- Old files beyond HISTORY days are auto-deleted.
+
+Example Setup:
+- Keep 30 days of logs in custom directory /data/sarlogs
+
+  Edit config:
+    HISTORY=30
+    SA_DIR=/data/sarlogs
+
+  Create directory:
+    sudo mkdir -p /data/sarlogs
+    sudo chown sysstat:sysstat /data/sarlogs
+
+  Restart service:
+    sudo systemctl restart sysstat
+
+=============================================================
+Chapter 12: Linux User & Group Management Lab (Easy Steps)
+=================================================
+
+1) Create a New User
+---------------------
+# Create user 'ravi' with a home folder
+sudo useradd -m ravi
+
+# Set a password for ravi
+sudo passwd ravi
+
+Check: Try logging in as ravi
+
+
+2) Create a New Group
+---------------------
+# Create group 'devops'
+sudo groupadd devops
+
+Check group in file:
+cat /etc/group | grep devops
+
+
+3) Add User to Group
+---------------------
+# Add ravi to devops group
+sudo usermod -aG devops ravi
+
+Check groups:
+groups ravi
+
+
+4) Change Primary Group of User
+---------------------
+# Change primary group of ravi to devops
+sudo usermod -g devops ravi
+
+Check:
+id ravi
+
+
+5) Lock and Unlock a User
+---------------------
+# Lock ravi's account
+sudo usermod -L ravi
+
+# Unlock ravi's account
+sudo usermod -U ravi
+
+
+6) Delete User
+---------------------
+# Delete user ravi and remove home folder
+sudo userdel -r ravi
+
+Check: ls /home
+
+
+7) Delete Group
+---------------------
+# Delete devops group
+sudo groupdel devops
+
+Check:
+cat /etc/group | grep devops
+
+
+Mini Story Recap
+-----------------
+- Create 'ravi' → give him a home.
+- Create 'devops' group → a new team.
+- Add 'ravi' to 'devops'.
+- Change his main group.
+- Lock/unlock him if needed.
+- Delete him when he leaves.
+- Delete the group if no longer needed.
+
+=============================================================
+CHAPTER 13: sudo 
+=============================================================
+🐧 Linux sudo & sudoers – Easy Guide
+
+1. What is sudo?
+   - "sudo" means Super User Do.
+   - It lets normal users run special commands like root (administrator).
+   - Example:
+     sudo ls /root
+     (shows files in root folder if you are allowed)
+
+2. What is sudoers file?
+   - It is a rule book stored in /etc/sudoers
+   - It says: which user can run which command as root.
+   - Always edit using: visudo
+     (this checks mistakes)
+
+3. Basic Rule Format
+   USER   HOST = (RUNAS) COMMANDS
+
+   Example:
+   alice   ALL=(ALL) ALL
+   → Alice can run any command as root.
+
+4. Give sudo Access
+   a) Add user to sudo group (Ubuntu/Debian)
+      usermod -aG sudo testuser
+
+   b) Add user to wheel group (RHEL/CentOS)
+      usermod -aG wheel testuser
+
+   c) Direct entry in sudoers file
+      testuser   ALL=(ALL) ALL
+
+5. Limit Access
+   a) Only restart nginx
+      testuser   ALL=(ALL) /bin/systemctl restart nginx
+
+   b) Multiple commands
+      testuser   ALL=(ALL) /usr/bin/apt update, /usr/bin/apt upgrade
+
+   c) No password needed
+      testuser   ALL=(ALL) NOPASSWD: /sbin/reboot
+
+6. Groups
+   - Instead of single user, we can give to group.
+   Example:
+   %devops   ALL=(ALL) /usr/bin/docker
+
+7. Remove Access
+   - Remove from sudo group:
+     gpasswd -d testuser sudo
+   - Or remove line from sudoers.
+
+8. Test sudo
+   - Check permissions:
+     sudo -l -U testuser
+
+   - Switch to user:
+     su - testuser
+     sudo whoami
+     (if allowed, it shows root)
+
+9. Examples
+   a) Full sudo:
+      testuser ALL=(ALL) ALL
+
+   b) Only reboot:
+      testuser ALL=(ALL) /sbin/reboot
+
+   c) Run as another user (bob):
+      testuser ALL=(bob) /usr/bin/ls
+
+10. Best Tips
+    - Always use visudo to edit safely.
+    - Give access to groups, not individuals.
+    - Give only needed commands (least privilege).
+    - Be careful with NOPASSWD.
+    - Logs are in:
+      /var/log/auth.log (Ubuntu)
+      /var/log/secure (RHEL)
+
+11. Practice (Lab)
+    1) Create users:
+       useradd test1 && passwd test1
+       useradd test2 && passwd test2
+
+    2) test1 → full sudo
+       echo "test1 ALL=(ALL) ALL" >> /etc/sudoers
+
+    3) test2 → only reboot
+       echo "test2 ALL=(ALL) /sbin/reboot" >> /etc/sudoers
+
+    4) Testing:
+       su - test1
+       sudo whoami   → should show root
+
+       su - test2
+       sudo reboot   → works
+       sudo cat /etc/shadow → FAIL
+
+    5) Remove access:
+       visudo → delete test2 line
+
+
+=============================================================
+CHAPTER 14: SHELL TIPS AND TRICKS
+=============================================================
+
+Chaining Commands (&& and ||)
+-----------------------------
+Purpose: Allows you to run multiple commands based on the success or failure of the previous one.
+    - `&&` (AND): Runs the second command only if the first one succeeds.
+    - `||` (OR): Runs the second command only if the first one fails.
+Use Case: You want to update your system and then automatically clean up old packages, but only if the update was successful.
+Examples:
+    # Run update, and if it succeeds, run autoremove
+    $ sudo dnf update && sudo dnf autoremove
+
+    # Try to ping a server, and if it fails, print a message
+    $ ping -c 1 server.example.com || echo "Server is down!"
+
+Command Substitution ($())
+--------------------------
+Purpose: Uses the output of one command as an argument for another command.
+Use Case: You want to `kill` a process but want to find its PID automatically instead of copying and pasting it.
+Example:
+    # This finds the PID of 'bad_process' and passes it directly to the kill command
+    $ sudo kill $(pgrep bad_process)
+
+xargs - The Power Tool
+----------------------
+Purpose: Builds and executes commands from standard input. It's used to handle long lists of files or arguments efficiently.
+Use Case: You have found hundreds of `.tmp` files using the `find` command and want to delete all of them in one go.
+Examples:
+    # Find all files ending in .bak and delete them using xargs
+    $ find . -name "*.bak" | xargs rm
+
+    # A more complex example: find all JPG images and archive them
+    $ find /home/user/Pictures -name "*.jpg" | xargs tar -cvzf all_images.tar.gz
+
+Conclusion
+----------
+Like any good cookbook, the best way to learn is to start cooking! Open a terminal and try these commands. Start with the basics, create some test files and directories, 
+and don't be afraid to experiment. The more you use the command line, the more powerful and efficient you will become. Happy cooking!
