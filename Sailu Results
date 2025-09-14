@@ -1,0 +1,149 @@
+14 wrong out of 50
+
+❌ 1. SSH into a server
+
+Your Answer: ssh.admin@192.168.0.10
+✅ Correct Answer:
+
+ssh admin@192.168.0.10
+
+❌ 2. Download a log file from server to local machine
+
+Your Answer: Missing
+✅ Correct Answer:
+
+scp user@server:/path/to/app.log ./
+
+❌ 3. Configure passwordless SSH
+
+Your Answer: Long explanation without actual command
+✅ Correct Answer:
+
+ssh-keygen -t rsa
+ssh-copy-id user@server2
+
+❌ 4. Test whether port 22 is open
+
+Your Answer: Missing
+✅ Correct Answer:
+
+nc -zv <target-server> 22
+
+
+Or:
+
+telnet <target-server> 22
+
+❌ 5. Download WordPress tarball using wget
+
+Your Answer: wget URl tarball
+✅ Correct Answer:
+
+wget https://wordpress.org/latest.tar.gz
+
+❌ 6. List all files installed by httpd package
+
+Your Answer: rpm -l httpd
+✅ Correct Answer:
+
+rpm -ql httpd
+
+❌ 7. Extract backup.tar.gz into /tmp/restore/
+
+Your Answer: tar -xvzf backup.tar.gz /tmp/restore/
+✅ Correct Answer:
+
+tar -xvzf backup.tar.gz -C /tmp/restore/
+
+❌ 8. Unzip into a specific directory
+
+Your Answer: unzip project.zip /opt/project/
+✅ Correct Answer:
+
+unzip project.zip -d /opt/project/
+
+❌ 1. Re-run a complex command from history
+
+Your Answer:
+
+history & !history number
+
+
+✅ Correct Answer:
+
+history        # To view past commands
+!<number>      # To re-run a specific command by its number
+
+
+Or use reverse search:
+
+Ctrl + r       # Then type part of the command
+
+
+💡 Explanation:
+The & and !history number are incorrect syntax. You use !<number> (e.g., !105) to re-run a command by its number from history.
+
+❌ 2. Extract only lines with "ERROR" from syslog
+
+Your Answer:
+
+sed -i "ERROR" /var/log/syslog
+
+
+✅ Correct Answer:
+
+grep "ERROR" /var/log/syslog
+
+
+💡 Explanation:
+sed -i is for editing files, not filtering. To extract matching lines, grep is the correct tool.
+
+❌ 3. Remove all commented lines from /etc/fstab
+
+Your Answer:
+
+sed '#/d' /etc/fstab
+
+
+✅ Correct Answer:
+
+sed '/^#/d' /etc/fstab
+
+
+💡 Explanation:
+The correct pattern to match lines starting with # is ^#. The original command is not valid sed syntax.
+
+❌ 4. Edit /etc/hosts without permissions
+
+Your Answer:
+
+vi /etc/hosts
+
+
+✅ Correct Answer:
+
+sudo vi /etc/hosts
+
+
+💡 Explanation:
+Editing system files like /etc/hosts requires elevated (root) permissions. sudo is needed.
+
+❌ 5. Find top 10 largest folders in /var/log
+
+Your Answer:
+
+df -ah /var/log | sort -rh | heand n-10
+
+
+✅ Correct Answer:
+
+du -sh /var/log/* | sort -rh | head -n 10
+
+
+💡 Explanation:
+
+df shows disk partitions, not folder sizes.
+
+du is used to find the size of directories.
+
+Also, heand n-10 is a typo for head -n 10.
