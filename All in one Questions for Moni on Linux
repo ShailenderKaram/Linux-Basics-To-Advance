@@ -66,14 +66,19 @@ Ans: find . /var/log -name f -mtime '1'
 Chapter 3: Text Processing (Q21–Q30)
 
 How do you quickly check the contents of /etc/hostname?
+Ans: cat /etc/hostname
 
 You need to read a 10MB log file page by page. Which command do you use?
+Ans: cat -n filename 
 
 How do you check the first 15 lines of /etc/passwd?
+Ans: head -n 15 /etc/passwd
 
 How do you continuously watch logs for new entries in real time?
+Ans: tail -f filename
 
 How do you find lines containing “ERROR” in app.log ignoring case?
+find -i "ERROR" app.log
 
 How do you count the number of “Failed password” attempts in /var/log/secure?
 
