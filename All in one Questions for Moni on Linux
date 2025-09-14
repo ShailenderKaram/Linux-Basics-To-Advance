@@ -344,7 +344,7 @@ Ans: give entry in /etc/fstab
 :wq!
 
 How do you adjust swappiness to 10?
-Ans: cat /proc/sysconfig/sysstat/swappiness
+Ans: cat /proc/sys/vm/swappiness
      vi /sysconfig/swappiness
       swappiness=10
 :wq!
@@ -380,4 +380,4 @@ How do you monitor network errors with sar?
 Ans: sar -n 5 5 (checking for every 5sec for 5 intervals)
 
 How do you change SAR log retention to 30 days and store logs in /data/sarlogs?
-Ans: vi /var/log/sa
+Ans: vi /etc/sysconfig/sysstat
