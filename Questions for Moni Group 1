@@ -24,29 +24,37 @@ Ans: touch test.sh
 
 Q: Before editing /etc/ssh/sshd_config, how do you safely create a backup copy?
 Use Case: Prevent downtime if your SSH changes break remote logins.
+Ans: scp .ibak /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
 
 Q: How do you rename report1.txt to final_report.txt without creating a copy?
 Use Case: Deliverable files in a project need proper naming before uploading.
+Ans: mv report1.txt final_report.txt
 
 Q: How do you remove an entire old project folder /tmp/project1/ with subfiles?
 Use Case: Cleanup is needed on a build server running low on space.
+Ans: rm -r /tmp/project1
 
 Q: How would you create a nested directory /opt/app/src/config/ in one command?
 Use Case: Developers requested folder hierarchy for new app deployment.
+Ans: mkdir -P /opt/app/src/config
 
 Q: You forgot where application.log is stored. How do you locate it?
 Use Case: While troubleshooting, you must quickly find logs across /var.
+Ans: find . /var -name application.log
 
 CHAPTER 3: Text Processing
 
 Q: How do you display the contents of /etc/hostname file in the terminal?
 Use Case: You’re confirming the system’s hostname for inventory documentation.
+Ans: cat /etc/hostname
 
 Q: A log file is very large. How do you read it page by page?
 Use Case: Reviewing /var/log/messages for kernel issues.
+Ans: cat -n /var/log/messages
 
 Q: How can you see the last 50 lines of /var/log/httpd/error.log?
 Use Case: Debugging an Apache crash by checking the most recent entries.
+Ans: tail -n 50 /var/log/httpd/error.log
 
 Q: Which command lets you continuously monitor new log lines in access.log?
 Use Case: Watching live HTTP requests hitting your webserver.
