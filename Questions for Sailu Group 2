@@ -29,7 +29,7 @@ Use Case: Verifying Security Group rules for SSH.
 A: 
 Q: How do you download the latest WordPress tarball using wget?
 Use Case: Setting up a fresh WordPress server.
-A: wgent URl tarball
+A: wget URl tarball
 Q: How do you use curl to check HTTP headers of https://api.github.com?
 Use Case: Debugging API authentication or CORS issues.
 A: curl -I https://api.github.com
