@@ -208,35 +208,49 @@ paste the public key here
 and save
 
 How do you use curl to fetch only headers from a URL?
-Ans: curl 
+Ans: curl -l
 
 How do you download a tarball with a custom filename using wget?
+Ans: wget https://tarball.tar.gz
 
 Chapter 7: Package Management (Q61–Q65)
 
 How do you search for the Apache package in RHEL?
+Ans: yum search packagename
+     dnf search packagename
 
 How do you install httpd using dnf?
+Ans: dnf install httpd -y
 
 How do you update all packages on a system?
+Ans: yum update *
+     dnf update 
 
 How do you find which package installed /etc/httpd/conf/httpd.conf?
+Ans: rpm -iq /etc/httpd.conf/httpd.conf
 
 How do you list all files belonging to the nginx package?
+Ans: rpm -ivh ngnix
 
 Chapter 8: Archives & Compression (Q66–Q72)
 
 How do you create a compressed tarball of /data?
+Ans: tar -cvzf tarball.tar.gz /data
 
 How do you extract a tarball into /tmp?
+Ans: tar -xvzf tarball.tar.gz /tmp
 
 How do you list contents of an archive without extracting?
+Ans: tar -tvf newfile.tar.gz
 
 How do you create a zip archive of /home/user?
+Ans: gzip /home/user.gz
 
 How do you unzip project.zip into the current folder?
+Ans: gzip -d project.zip.gz
 
 How do you compress report.txt but keep the original file?
+Ans: gzip -k report.txt.gz
 
 How do you view the contents of data.txt.gz without extracting?
 
