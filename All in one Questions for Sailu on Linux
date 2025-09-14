@@ -1,227 +1,257 @@
 Chapter 1: Basics – Interacting with Your System (Q1–Q10)
 
 How do you quickly check the purpose of a command you forgot an option for?
-
+A:--help and man
 You ran a long command yesterday and want to re-run it today without retyping. How?
-
+A: history & !history number
 After navigating deep into directories, how do you confirm your current path?
-
+A: pwd
 How do you switch back to the previous directory?
-
+A: cd -
 What’s the difference between cd ~ and cd -?
-
+A: cd ~ will take us to home
+   cd - will take us back to previous directory
 How do you list all files including hidden ones?
-
+A: ls -la
 How do you list files with human-readable sizes and permissions?
-
+A: ls -lh
 How do you run the last failed command again from history?
-
+A:!!
 How do you search for commands in history containing ssh?
-
+A: history | grep -i ssh
 If a junior admin deletes a file, how can you find when it happened using history?
-
+A: history | grep rm
 Chapter 2: File & Directory Management (Q11–Q20)
 
 How do you create multiple nested directories at once?
-
+A: mkdir -p t1/t2/t3.....
 You need a placeholder file for logs. Which command is best?
-
+A: touch
 How do you copy a directory recursively while preserving attributes?
-
+A: cp -r 
 How do you back up a config file before editing?
-
+A: cp config config.backup
 You downloaded a file with the wrong name. How do you rename it?
-
+A: mv oldfilename newfilename
 What is the safest way to delete files interactively?
-
+A: rm -i
 How do you delete all .tmp files in the current directory and subdirectories?
-
+A: find . -type f -name "*.tmp" -delete
 An app fails because a required directory is missing. How do you create it along with parents?
-
+A: mkdir -p
 You want to move multiple reports into /archive. How?
-
+A: mv reports,reports1 /archive
 How do you find all files modified in the last 24 hours in /var/log?
-
+A: find . /var/log -type f -mtime -1
 Chapter 3: Text Processing (Q21–Q30)
 
 How do you quickly check the contents of /etc/hostname?
-
+A: cat /etc/hostname
 You need to read a 10MB log file page by page. Which command do you use?
-
+A: less filename
 How do you check the first 15 lines of /etc/passwd?
-
+A: head -n 15 /etc/passwd
 How do you continuously watch logs for new entries in real time?
-
+A: tail -f filename
 How do you find lines containing “ERROR” in app.log ignoring case?
-
+A: grep "ERROR" app.log
 How do you count the number of “Failed password” attempts in /var/log/secure?
-
+A: /var/log/secure | grep -i Failed password | WC
 How do you exclude commented lines (#) when viewing /etc/fstab?
-
+A: sed '/^#/d' /etc/fstab
 You want to replace “dev” with “prod” in a config file. Which command works?
-
+A: sed -i 's/dev/prod/g' config file.
 How do you delete all lines containing “DEBUG” in a log file?
-
+A: sed '/DEBUG/d' .log
 How do you combine two text files line by line into one file?
 
 Chapter 4: Permissions & Ownership (Q31–Q40)
 
 You wrote a script but can’t run it. How do you fix permissions?
-
+A: chmod 777 username
 How do you set permissions so only the owner can read and write a file?
-
+A: chmod 600 username
 How do you recursively remove execute permission from all files in /opt/data?
-
+A: chmod -R a-x /opt/data
 What does chmod 755 mean in detail?
-
+A: read, write & execute permissions to user
+   read & execute permissions to both others and group.
 A file in /var/www/html must be owned by nginx. How do you fix ownership?
-
+A: chown ngnix:nginx /var/www/html
 How do you change both owner and group at once?
-
+A: chown user:group=filename
 You need to ensure /data is accessible by group developers. How?
-
+A: chown g=developers /data
 How do you verify current ACLs applied on a file?
-
+A: getfacl pathlocation
 You gave ACL access, but a user still can’t write. What’s the first thing you check?
-
+A: /etc/fstab
 How do you grant group qa read-only access to /data/test.log without changing file ownership?
-
+A: setfacl -m g:qa:r /data/test.log
+   verify with getfacl
 Chapter 5: System Monitoring (Q41–Q50)
 
 A server is full. How do you find which folder is consuming the most space?
-
+A: df -hT
 How do you check memory usage in a human-readable format?
-
+A: du -sh
 How do you find the top 10 processes consuming the most CPU?
-
+A:ps aux
 How do you find which process is using port 8080?
-
+A: ps -ef |grep -i 8080
 A process hangs. How do you kill it safely?
-
+A: kill processID
 How do you continuously watch CPU usage per core?
-
+A: top & htop we can use both
 What is the difference between df -h and du -sh?
-
+A:df -h will show disk usage of over in human readable language
+  du -sh will show the disk usage of present directory
 How do you check swap usage using system commands?
-
+A: swapon --show
 How do you identify zombie processes?
-
+A: top | grep zombie
 How do you check which user started a particular process?
-
+A: ps aux | grep processname
 Chapter 6: Networking (Q51–Q60)
 
 How do you verify if google.com is reachable?
-
+A: ping google.com
 How do you test only 5 ping packets?
-
+A: ping -c 5 ip
 How do you check the server’s IP and routes?
-
+A:ip address show 
+  ip route
 A web server is unreachable, but SSH works. How do you check if port 80 is open?
 
 How do you securely log in to a remote host with user admin?
-
+A: ssh.admin@ipaddess
 How do you copy a file from local to a remote server over SSH?
-
+A: scp filename user@ipadderess:file location
 How do you copy a file from remote to local?
-
+A:scp user@ipadderess:file location filename
 How do you enable passwordless SSH between two AWS Linux servers?
-
+A:ssh-keygen -t rsa 
+   keys generated 
+   copy content from public key (.pub) from cat id_rsa.pub
+   go to server 2 and go to .ssh/authorized_keys
+   and paste in the authorized_keys
 How do you use curl to fetch only headers from a URL?
-
+A:curl -I URL
 How do you download a tarball with a custom filename using wget?
-
+A:wget tarballURL
 Chapter 7: Package Management (Q61–Q65)
 
 How do you search for the Apache package in RHEL?
-
+A:yum search httpd
 How do you install httpd using dnf?
-
+A: dnf install httpd -y
 How do you update all packages on a system?
-
+A: yum update
 How do you find which package installed /etc/httpd/conf/httpd.conf?
-
+A: yum search /etc/httpd/conf/httpd.conf
 How do you list all files belonging to the nginx package?
-
+A: ls | grep -i nginx
 Chapter 8: Archives & Compression (Q66–Q72)
 
 How do you create a compressed tarball of /data?
-
+A: tar -cvzf tarball.gz /data
 How do you extract a tarball into /tmp?
-
+A: tar -xvzf tarball /tmp
 How do you list contents of an archive without extracting?
-
+A: tar -tvf
 How do you create a zip archive of /home/user?
-
+A: zip -r filename.zip /home/user
 How do you unzip project.zip into the current folder?
-
+A: unzip project.zip
 How do you compress report.txt but keep the original file?
-
+A: gzip -c report.txt.gz report.txt
 How do you view the contents of data.txt.gz without extracting?
-
+A: zcat data.txt.gz
 Chapter 9: Advanced – Services & Systemctl (Q73–Q77)
 
 How do you start and enable nginx on boot?
-
+A:systemctl start nginx 
+  systemctl enable nginx
 How do you restart sshd service safely?
-
+A: systemctl restart sshd
 How do you check if crond is running?
-
+A: systemctl status crond
 How do you disable a service from starting on boot?
-
+A: systemctl disable servicename
 How do you check logs of a failed systemd service?
-
+A: systemctl status systemd | grep -i failed
 Chapter 10: Disk Partitioning & LVM (Q78–Q83)
 
 How do you create a new partition on /dev/sdb?
-
+add a disk to /dev/sdb
+  fdisk /dev/sdb
+  n - new partition
+  no.of partitions 1
+  default
+  partition space
+  p - print
+  w - save
+  run partprobe
 How do you format a partition with XFS?
-
+A: mkfs.xfs filesystem name
 How do you make a mount permanent across reboots?
-
+A: go to vi /etc/fstab and change entries
 How do you extend a logical volume by 20GB?
-
+A: lvextend -L +20G filesystemname
 A reboot happened and /data didn’t mount. What’s your fix?
-
+A: check in /etc/fstab the disk is added or not
 How do you check filesystem type of /dev/sdb1?
-
+A: fdisk -l
 Chapter 11: ACLs (Q84–Q87)
 
 How do you give user john rw access to /data/file.txt?
-
+A: setfacl -m u:john:rw /data/file.txt
 How do you set default ACL so all new files in /shared are accessible by qa group?
-
+A: setfacl -d g:qa:rwx /shared
 A user complains ACLs are not working after reboot. What do you check first?
-
+A: check if the process enabled or not 
+systemctl status ACL if it is not enabled
+systemctl enable ACL
 How do you remove all ACL entries from a file?
-
+A: setfacl -b
 Chapter 12: Swap Management (Q88–Q91)
 
 How do you check swap usage?
-
+A: free -h
 How do you create a 4GB swap file?
-
+A: fdisk filesystemname
+   n - new
+   default
+   default partition
+   t - type
+   82 - swap
+   give swap storage 4G
+   p - print
+   w - save
+   partprobe
 How do you permanently enable a swap file?
-
+A: give entry in /etc/fstab using vi /etc/fstab
+   swap filesystemname swap swap default 0 0
 How do you adjust swappiness to 10?
-
+A: sysctl vm.swappiness=10
 Chapter 13: Users, Groups, & sudo (Q92–Q96)
 
 How do you create user ravi with a home directory?
-
+A: useradd ravi
 How do you add ravi to group devops?
-
+A: usermod -aG devops ravi
 How do you lock a user account?
-
+A: usermod -L username
 How do you give a user permission to reboot the server without password?
-
+A: go to vi sudoers and paste username ALL=ALL NOPASSWD /reboot
 How do you check sudo access of a user?
-
+A: su username and check whoami
 Chapter 14: SAR (System Activity Report) (Q97–Q100)
 
 How do you check per-core CPU usage every 5 seconds?
-
+A: sar -u 5
 How do you find which disk had high I/O yesterday at 2 PM?
-
+A: sar -d /var/log/sa/sa -s 02:00:00 -e 02:10:00
 How do you monitor network errors with sar?
-
+A: sar -n 1 3
 How do you change SAR log retention to 30 days and store logs in /data/sarlogs?
