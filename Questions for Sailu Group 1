@@ -2,83 +2,84 @@ CHAPTER 1: Basics
 
 Q: How would you find the exact option in ls that shows hidden files if you forgot it?
 Use Case: You’re checking for .ssh or .git hidden directories and can’t recall the flag.
-
+A: ls -la
 Q: If you are lost in deep directories, which command shows your exact location?
 Use Case: While debugging scripts in /etc subfolders, you need the absolute path for copy-pasting into configs.
-
+A: pwd
 Q: How do you quickly return to the last directory you visited?
 Use Case: You’re moving back and forth between /etc/nginx/ and /var/www/html/ to debug webserver issues.
-
+A: cd -
 Q: How can you re-run a complex command you executed yesterday without typing it again?
 Use Case: You used a long tar command to back up logs and now need it again.
-
+A: history & !history number
 CHAPTER 2: File & Directory Management
 
 Q: How would you create a new empty script file to start coding immediately?
 Use Case: A deployment engineer needs to create deploy.sh before writing steps.
-
+A: touch deploy.sh
 Q: Before editing /etc/ssh/sshd_config, how do you safely create a backup copy?
 Use Case: Prevent downtime if your SSH changes break remote logins.
-
+A: cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
 Q: How do you rename report1.txt to final_report.txt without creating a copy?
 Use Case: Deliverable files in a project need proper naming before uploading.
-
+A: mv report1.txt final_report.txt
 Q: How do you remove an entire old project folder /tmp/project1/ with subfiles?
 Use Case: Cleanup is needed on a build server running low on space.
-
+A: rm -r /tmp/project1/
 Q: How would you create a nested directory /opt/app/src/config/ in one command?
 Use Case: Developers requested folder hierarchy for new app deployment.
-
+A: mkdir -p /opt/app/src/config/
 Q: You forgot where application.log is stored. How do you locate it?
 Use Case: While troubleshooting, you must quickly find logs across /var.
-
+A: find /var -type f -name application.log
 CHAPTER 3: Text Processing
 
 Q: How do you display the contents of /etc/hostname file in the terminal?
 Use Case: You’re confirming the system’s hostname for inventory documentation.
-
+A: cat /etc/hostname
 Q: A log file is very large. How do you read it page by page?
 Use Case: Reviewing /var/log/messages for kernel issues.
-
+A: less /var/log/messages
 Q: How can you see the last 50 lines of /var/log/httpd/error.log?
 Use Case: Debugging an Apache crash by checking the most recent entries.
-
+A: tail -50 /var/log/httpd/error.log
 Q: Which command lets you continuously monitor new log lines in access.log?
 Use Case: Watching live HTTP requests hitting your webserver.
-
+A: tail -f access.log
 Q: How do you extract only lines with the word ERROR from /var/log/syslog?
 Use Case: Filtering thousands of logs to see just failure messages.
-
+A: sed -i ERROR /var/log/syslog
 Q: You want to remove all commented lines (#) from /etc/fstab. Which command?
 Use Case: Preparing a clean copy of the config file for documentation.
-
+A: sed '#/d' /etc/fstab
 Q: How do you replace the word development with production in config.yml?
 Use Case: Updating environment settings during app promotion to PROD.
-
+A: sed 's/development/production/g' config.yml
 CHAPTER 4: Permissions & Ownership
 
 Q: How do you make deploy.sh executable for the owner only?
 Use Case: A script you wrote needs to run but shouldn’t be touched by others.
-
+A: chmod 700 deploy.sh
 Q: What command assigns ownership of /var/www/html to nginx user and group?
 Use Case: Fixing “Permission Denied” errors for webserver serving files.
-
+A: chown nginx:nginx /var/www/html
 Q: How do you edit /etc/hosts when your normal user doesn’t have permissions?
 Use Case: Adding custom DNS entries but requiring sudo privileges.
-
+A: vi /etc/hosts
 CHAPTER 5: System Monitoring
 
 Q: How do you check which partition is 95% full?
 Use Case: Preventing a server outage caused by / or /var being full.
-
+A: df -hT
 Q: Which command finds the top 10 largest folders in /var/log?
 Use Case: Identifying log directories consuming excessive disk space.
-
+A: df -ah /var/log | sort -rh | heand n-10
 Q: How do you verify if your application server is running out of RAM?
 Use Case: Application latency suspected due to memory exhaustion.
-
+A: free -h
 Q: Which command helps you identify the top CPU-consuming process in real time?
 Use Case: System suddenly becomes slow, and you need to check live CPU hogs.
-
+A: top & htop
 Q: How do you find the PID of nginx to restart or kill it?
 Use Case: Troubleshooting when service command doesn’t respond properly.
+A: ps aux | grep -i nginx
