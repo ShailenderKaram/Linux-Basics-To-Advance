@@ -37,7 +37,7 @@ How do you create multiple nested directories at once?
 Ans: mkdir -P /dir/sub1/sub2/sub3
 
 You need a placeholder file for logs. Which command is best?
-Ans: 
+Ans: /var/log
 
 How do you copy a directory recursively while preserving attributes?
 Ans: cp -r
@@ -84,7 +84,7 @@ How do you count the number of “Failed password” attempts in /var/log/secure
 Ans: cat -c "Failed password" /var/log/secure (or) grep -c "Failed password" /var/log/secure
 
 How do you exclude commented lines (#) when viewing /etc/fstab?
-Ans: 
+Ans: dd - deleting '#' in vi editor
 
 You want to replace “dev” with “prod” in a config file. Which command works?
 Ans: sed 's/dev/prod/g' config file
@@ -253,16 +253,22 @@ How do you compress report.txt but keep the original file?
 Ans: gzip -k report.txt.gz
 
 How do you view the contents of data.txt.gz without extracting?
+Ans: tar -tvf data.txt.gz
 
 Chapter 9: Advanced – Services & Systemctl (Q73–Q77)
 
 How do you start and enable nginx on boot?
+Ans: systemctl start ngnix
+     systemctl enable ngnix
 
 How do you restart sshd service safely?
+Ans: systemctl restart sshd
 
 How do you check if crond is running?
+Ans: crontab -l
 
 How do you disable a service from starting on boot?
+Ans: systemctl disable service name
 
 How do you check logs of a failed systemd service?
 
