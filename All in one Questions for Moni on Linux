@@ -112,19 +112,22 @@ Ans: owner/user having read, write and execute permissions
      Others having read and execute permissions
 
 A file in /var/www/html must be owned by nginx. How do you fix ownership?
-Ans: chown nginx:nginx /var/www/html
+Ans: chown nginx /var/www/html
 
 How do you change both owner and group at once?
 Ans: chown owner:group file.txt
 
 You need to ensure /data is accessible by group developers. How?
-Ans:
+Ans: setfacl -m g:developers /data
 
 How do you verify current ACLs applied on a file?
+Ans: getfacl filename
 
 You gave ACL access, but a user still can’t write. What’s the first thing you check?
+Ans: you need to check the permissions whether the user is having write permision or not
 
 How do you grant group qa read-only access to /data/test.log without changing file ownership?
+Ans: chmod g:qa:r /data/test.log
 
 Chapter 5: System Monitoring (Q41–Q50)
 
