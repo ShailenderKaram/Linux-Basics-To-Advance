@@ -48,7 +48,7 @@ Use Case: Watching live HTTP requests hitting your webserver.
 A: tail -f access.log
 Q: How do you extract only lines with the word ERROR from /var/log/syslog?
 Use Case: Filtering thousands of logs to see just failure messages.
-A: sed -i ERROR /var/log/syslog
+A: sed -i "ERROR" /var/log/syslog
 Q: You want to remove all commented lines (#) from /etc/fstab. Which command?
 Use Case: Preparing a clean copy of the config file for documentation.
 A: sed '#/d' /etc/fstab
