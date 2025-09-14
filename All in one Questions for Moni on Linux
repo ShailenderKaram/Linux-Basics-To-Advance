@@ -104,7 +104,7 @@ How do you set permissions so only the owner can read and write a file?
 Ans: chmod u:rw file.txt
 
 How do you recursively remove execute permission from all files in /opt/data?
-Ans: chmod -R * 111 /opt/data
+Ans: chmod -R 111 /opt/data/*
 
 What does chmod 755 mean in detail?
 Ans: owner/user having read, write and execute permissions
@@ -127,7 +127,7 @@ You gave ACL access, but a user still can’t write. What’s the first thing yo
 Ans: you need to check the permissions whether the user is having write permision or not
 
 How do you grant group qa read-only access to /data/test.log without changing file ownership?
-Ans: chmod g:qa:r /data/test.log
+Ans: chmod g:qa:r /data/test.log (or) setfacl -m g:qa:r /data/test.log
 
 Chapter 5: System Monitoring (Q41–Q50)
 
