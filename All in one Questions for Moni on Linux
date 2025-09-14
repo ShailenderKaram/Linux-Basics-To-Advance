@@ -7,18 +7,26 @@ You ran a long command yesterday and want to re-run it today without retyping. H
 Ans: 1st do history and see the command number you want to run for eg:77 meanes '!77"
 
 After navigating deep into directories, how do you confirm your current path?
+Ans: 'pwd' (present working directory)
 
 How do you switch back to the previous directory?
+Ans: 'cd -'
 
 What’s the difference between cd ~ and cd -?
+Ans: cd ~ means the particular directories home directory
+     cd - meanes going back or switch back to the previous directory
 
 How do you list all files including hidden ones?
+Ans: 'ls -a'
 
 How do you list files with human-readable sizes and permissions?
+Ans: 'ls -lh'
 
 How do you run the last failed command again from history?
+Ans: !!
 
 How do you search for commands in history containing ssh?
+Ans: history | grep -i ssh
 
 If a junior admin deletes a file, how can you find when it happened using history?
 
