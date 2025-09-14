@@ -93,20 +93,29 @@ How do you delete all lines containing “DEBUG” in a log file?
 Ans: sed 's/DEBUG/d' log file
 
 How do you combine two text files line by line into one file?
+Ans: cat file1,file2 file.txt
 
 Chapter 4: Permissions & Ownership (Q31–Q40)
 
 You wrote a script but can’t run it. How do you fix permissions?
+Ans: 1st you need to see the permissions of the particular file whether we have given execute permission to execute the file 
 
 How do you set permissions so only the owner can read and write a file?
+Ans: chmod u:rw file.txt
 
 How do you recursively remove execute permission from all files in /opt/data?
+Ans: chmod -R * 111 /opt/data
 
 What does chmod 755 mean in detail?
+Ans: owner/user having read, write and execute permissions
+     Group having read and execute permissions
+     Others having read and execute permissions
 
 A file in /var/www/html must be owned by nginx. How do you fix ownership?
+Ans: chown nginx:nginx /var/www/html
 
 How do you change both owner and group at once?
+Ans:
 
 You need to ensure /data is accessible by group developers. How?
 
