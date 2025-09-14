@@ -115,9 +115,10 @@ A file in /var/www/html must be owned by nginx. How do you fix ownership?
 Ans: chown nginx:nginx /var/www/html
 
 How do you change both owner and group at once?
-Ans:
+Ans: chown owner:group file.txt
 
 You need to ensure /data is accessible by group developers. How?
+Ans:
 
 How do you verify current ACLs applied on a file?
 
