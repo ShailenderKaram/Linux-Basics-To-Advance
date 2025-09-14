@@ -87,9 +87,10 @@ How do you exclude commented lines (#) when viewing /etc/fstab?
 Ans: 
 
 You want to replace “dev” with “prod” in a config file. Which command works?
-Ans: sed 's/dev/prod/d' config file
+Ans: sed 's/dev/prod/g' config file
 
 How do you delete all lines containing “DEBUG” in a log file?
+Ans: sed 's/DEBUG/d' log file
 
 How do you combine two text files line by line into one file?
 
