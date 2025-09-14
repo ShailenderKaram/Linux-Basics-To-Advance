@@ -153,8 +153,8 @@ Ans: sar -U 2 3
      here 3 meanes for 3 intervals
 
 What is the difference between df -h and du -sh?
-Ans: du -sh means its shows the disc usage
-     df -h 
+Ans: du -sh means its shows the size
+     df -h to see the disc space
 
 How do you check swap usage using system commands?
 
