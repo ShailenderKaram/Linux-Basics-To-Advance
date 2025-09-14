@@ -2,79 +2,80 @@ CHAPTER 6: Networking
 
 Q: How do you check if google.com is reachable from your server?
 Use Case: Debugging when web apps can’t fetch external APIs.
-
+A: ping google.com
 Q: How do you limit a ping test to just 4 packets?
 Use Case: Quick connectivity test to a database server without flooding.
-
+A: ping -c 4 ip address
 Q: How do you check your server’s IP addresses?
 Use Case: While configuring Nginx to bind to a specific IP.
-
+A: ip address show
 Q: How do you view the routing table on your system?
 Use Case: Diagnosing why packets are not reaching a remote subnet.
-
+A: ip route 
 Q: How do you SSH into a server 192.168.0.10 with username admin?
 Use Case: Logging in to manage a production web server.
-
+A: ssh.admin@192.168.0.10
 Q: How would you securely copy backup.tar.gz from your laptop to /opt/backups/ on server 10.0.0.5?
 Use Case: Uploading backups before migration.
-
+A: scp backup.tar.gz user@10.0.0.5:/opt/backups/
 Q: How do you download a log file app.log from a server to your local machine?
 Use Case: Developer needs logs from production for debugging.
-
+A: 
 Q: How do you configure passwordless SSH between two servers?
 Use Case: Automating deployments with Ansible or Jenkins.
-
+A: ssh-keygen -t rsa keys generated copy content from public key (.pub) from cat id_rsa.pub go to server 2 and go to .ssh/authorized_keys and paste in the authorized_keys.
 Q: How do you test whether port 22 is open between two AWS servers?
 Use Case: Verifying Security Group rules for SSH.
-
+A: 
 Q: How do you download the latest WordPress tarball using wget?
 Use Case: Setting up a fresh WordPress server.
-
+A: wgent URl tarball
 Q: How do you use curl to check HTTP headers of https://api.github.com?
 Use Case: Debugging API authentication or CORS issues.
-
+A: curl -I https://api.github.com
 CHAPTER 7: Package Management
 
 Q: How do you search for the Apache webserver package on RHEL?
 Use Case: Finding the right package name before installing.
-
+A: yum search httpd
 Q: How do you install Apache using dnf?
 Use Case: Setting up a new webserver quickly.
-
+A: dnf install httpd
 Q: How do you remove Apache from your system?
 Use Case: Freeing up resources on a server no longer serving web apps.
-
+A: yum remove httpd
 Q: How do you update only the nginx package and not the whole system?
 Use Case: Security patching for critical services.
-
+A: yum update nginx
 Q: How do you update all installed packages at once?
 Use Case: Preparing a system for compliance/security audits.
-
+A: yum update 
 Q: How do you find which package installed /etc/httpd/conf/httpd.conf?
 Use Case: Identifying ownership of config files.
-
+A: rom -qf /etc/httpd/conf/httpd.conf
 Q: How do you list all files installed by the httpd package?
 Use Case: Checking which binaries and configs belong to Apache.
-
+A: rpm -l httpd
 CHAPTER 8: Archives & Compression
 
 Q: How do you compress /var/logs/app/ into a single tarball?
 Use Case: Archiving logs before rotation.
-
+A: tar -cvzf app.gz /var/logs/app/ 
 Q: How do you extract backup.tar.gz into /tmp/restore/?
 Use Case: Restoring project files after a crash.
-
+A: tar -xvzf backup.tar.gz /tmp/restore/
 Q: How do you list the contents of backup.tar.gz without extracting?
 Use Case: Confirming archive contents before restore.
-
+A: tar -tvf backup.tar.gz
 Q: How do you create a zip file site.zip from /var/www/html/?
 Use Case: Sending a website backup to a Windows user.
-
+A: zip -r site.zip /var/www/html/
 Q: How do you unzip project.zip into /opt/project/?
 Use Case: Deploying source code sent by developers.
-
+A: unzip project.zip /opt/project/
 Q: How do you compress a file data.csv with maximum compression using gzip?
 Use Case: Minimizing storage size for database exports.
-
+A: gzip -9 data.csv
 Q: How do you view contents of logs.gz without extracting?
 Use Case: Quickly checking compressed logs on a space-limited server.
+A: zcat logs.gz
