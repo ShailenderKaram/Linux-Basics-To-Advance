@@ -17,7 +17,7 @@ Ans: cd ~ means the particular directories home directory
      cd - meanes going back or switch back to the previous directory
 
 How do you list all files including hidden ones?
-Ans: 'ls -a'
+Ans: 'ls -a' 
 
 How do you list files with human-readable sizes and permissions?
 Ans: 'ls -lh'
