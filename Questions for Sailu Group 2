@@ -52,7 +52,7 @@ Use Case: Preparing a system for compliance/security audits.
 A: yum update 
 Q: How do you find which package installed /etc/httpd/conf/httpd.conf?
 Use Case: Identifying ownership of config files.
-A: rom -qf /etc/httpd/conf/httpd.conf
+A: rpm -qf /etc/httpd/conf/httpd.conf
 Q: How do you list all files installed by the httpd package?
 Use Case: Checking which binaries and configs belong to Apache.
 A: rpm -l httpd
