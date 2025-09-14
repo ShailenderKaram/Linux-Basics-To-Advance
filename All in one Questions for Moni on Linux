@@ -132,18 +132,29 @@ Ans: chmod g:qa:r /data/test.log
 Chapter 5: System Monitoring (Q41–Q50)
 
 A server is full. How do you find which folder is consuming the most space?
+Ans: df -hT
 
 How do you check memory usage in a human-readable format?
+Ans: du -sh
 
 How do you find the top 10 processes consuming the most CPU?
+Ans: ps -ef | grep -n 10
 
 How do you find which process is using port 8080?
+Ans: ps -ef | grep -i 8080
 
 A process hangs. How do you kill it safely?
+Ans: kill processid (or) kill -1 processid 
+(kill -9 processid) for forcefully killing
 
 How do you continuously watch CPU usage per core?
+Ans: sar -U 2 3
+     here 2 meanes for every 2 mins 
+     here 3 meanes for 3 intervals
 
 What is the difference between df -h and du -sh?
+Ans: du -sh means its shows the disc usage
+     df -h 
 
 How do you check swap usage using system commands?
 
