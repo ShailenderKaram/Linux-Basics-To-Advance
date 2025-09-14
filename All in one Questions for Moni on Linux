@@ -1,8 +1,10 @@
 Chapter 1: Basics – Interacting with Your System (Q1–Q10)
 
 How do you quickly check the purpose of a command you forgot an option for?
+Ans: 'Man' command, for example: 'Man ls' 
 
 You ran a long command yesterday and want to re-run it today without retyping. How?
+Ans: 1st do history and see the command number you want to run for eg:77 meanes '!77"
 
 After navigating deep into directories, how do you confirm your current path?
 
