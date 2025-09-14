@@ -29,28 +29,39 @@ How do you search for commands in history containing ssh?
 Ans: history | grep -i ssh
 
 If a junior admin deletes a file, how can you find when it happened using history?
+Ans: we can see the history of which file was deleted but cannot see when it was deleted
 
 Chapter 2: File & Directory Management (Q11–Q20)
 
 How do you create multiple nested directories at once?
+Ans: mkdir -P /dir/sub1/sub2/sub3
 
 You need a placeholder file for logs. Which command is best?
+Ans: 
 
 How do you copy a directory recursively while preserving attributes?
+Ans: cp -r
 
 How do you back up a config file before editing?
+cp config file config file.bak
 
 You downloaded a file with the wrong name. How do you rename it?
+Ans: mv kathick kartheek
 
 What is the safest way to delete files interactively?
+Ans: 'rm filename' it asks for confirmation, if not you give 'rm -f filename' it will delete witout confirmation
 
 How do you delete all .tmp files in the current directory and subdirectories?
+Ans: rm -r '*.tmp'
 
 An app fails because a required directory is missing. How do you create it along with parents?
+Ans: mkdir -P /d/d1/d2
 
 You want to move multiple reports into /archive. How?
+Ans: tar -cvf multiple reports.tar /archive
 
 How do you find all files modified in the last 24 hours in /var/log?
+Ans: find . /var/log -name f -mtime '1' 
 
 Chapter 3: Text Processing (Q21–Q30)
 
