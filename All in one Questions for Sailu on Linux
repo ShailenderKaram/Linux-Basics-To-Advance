@@ -68,9 +68,9 @@ How do you combine two text files line by line into one file?
 Chapter 4: Permissions & Ownership (Q31–Q40)
 
 You wrote a script but can’t run it. How do you fix permissions?
-A: chmod 777 username
+A: chmod 777 filename
 How do you set permissions so only the owner can read and write a file?
-A: chmod 600 username
+A: chmod 600 filename
 How do you recursively remove execute permission from all files in /opt/data?
 A: chmod -R a-x /opt/data
 What does chmod 755 mean in detail?
@@ -79,7 +79,7 @@ A: read, write & execute permissions to user
 A file in /var/www/html must be owned by nginx. How do you fix ownership?
 A: chown ngnix:nginx /var/www/html
 How do you change both owner and group at once?
-A: chown user:group=filename
+A: chown user:group filename
 You need to ensure /data is accessible by group developers. How?
 A: chown g=developers /data
 How do you verify current ACLs applied on a file?
@@ -94,7 +94,7 @@ Chapter 5: System Monitoring (Q41–Q50)
 A server is full. How do you find which folder is consuming the most space?
 A: df -hT
 How do you check memory usage in a human-readable format?
-A: du -sh
+A: free -h
 How do you find the top 10 processes consuming the most CPU?
 A:ps aux
 How do you find which process is using port 8080?
@@ -124,7 +124,7 @@ A:ip address show
 A web server is unreachable, but SSH works. How do you check if port 80 is open?
 
 How do you securely log in to a remote host with user admin?
-A: ssh.admin@ipaddess
+A: ssh admin@ipaddess
 How do you copy a file from local to a remote server over SSH?
 A: scp filename user@ipadderess:file location
 How do you copy a file from remote to local?
@@ -150,7 +150,7 @@ A: yum update
 How do you find which package installed /etc/httpd/conf/httpd.conf?
 A: yum search /etc/httpd/conf/httpd.conf
 How do you list all files belonging to the nginx package?
-A: ls | grep -i nginx
+A: rpm -ql nginx
 Chapter 8: Archives & Compression (Q66–Q72)
 
 How do you create a compressed tarball of /data?
