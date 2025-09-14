@@ -271,18 +271,45 @@ How do you disable a service from starting on boot?
 Ans: systemctl disable service name
 
 How do you check logs of a failed systemd service?
+Ans: cat /etc/sysconfig/sysstat
 
 Chapter 10: Disk Partitioning & LVM (Q78–Q83)
 
 How do you create a new partition on /dev/sdb?
+steps: fdisk -l /dev/sdb
+       'n' new partition
+       'primary partition'
+       'size'
+       sector value give default
+       print
+       w for save
+       run partprobe
+       create a directory 'mkdir /documents'
+     add to filesystem 'mkfs.xfs /dev/sdb1'
+     mount the disk on /documents 'mount /dev/sdb1 /documents'
+once after mounting check 'lsblk'
+do bikid to copy block id and paste it on fstab entry
+do 'blkid'
+copy the uuid
+open 'vi /etc/fstab'
+paste in it
+uuid="xxxx-xxxx xfs /documents defaults 0  0
+:wq! (save)
+now check mount -a for any errors
 
 How do you format a partition with XFS?
+Ans: mkfs.xfs /dev/sdb1
 
 How do you make a mount permanent across reboots?
+Ans: by giving entries in fstab
+     vi /etc/fstab
+     and save it
 
 How do you extend a logical volume by 20GB?
+Ans: lvextend -L +20G /dev/vggroup/lvname
 
 A reboot happened and /data didn’t mount. What’s your fix?
+Ans: 
 
 How do you check filesystem type of /dev/sdb1?
 
