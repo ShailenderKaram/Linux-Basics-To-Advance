@@ -93,7 +93,7 @@ How do you delete all lines containing “DEBUG” in a log file?
 Ans: sed 's/DEBUG/d' log file
 
 How do you combine two text files line by line into one file?
-Ans: cat file1,file2 file.txt
+Ans: cat file1 file2 > file.txt
 
 Chapter 4: Permissions & Ownership (Q31–Q40)
 
@@ -132,10 +132,10 @@ Ans: chmod g:qa:r /data/test.log
 Chapter 5: System Monitoring (Q41–Q50)
 
 A server is full. How do you find which folder is consuming the most space?
-Ans: df -hT
+Ans: sar -A
 
 How do you check memory usage in a human-readable format?
-Ans: du -sh
+Ans: free -h
 
 How do you find the top 10 processes consuming the most CPU?
 Ans: ps -ef | grep -n 10
@@ -157,30 +157,58 @@ Ans: du -sh means its shows the size
      df -h to see the disc space
 
 How do you check swap usage using system commands?
+Ans: free -m
 
 How do you identify zombie processes?
+Ans: if the process is not in arunning state then it is zombie process
 
 How do you check which user started a particular process?
+Ans: ps -ef |grep -i processid
 
 Chapter 6: Networking (Q51–Q60)
 
 How do you verify if google.com is reachable?
+Ans: ping google.com
 
 How do you test only 5 ping packets?
+Ans: ping -c 5 google.com
 
 How do you check the server’s IP and routes?
+Ans: Server ip: hostname -i, ip a
+     Routes : ip route
 
 A web server is unreachable, but SSH works. How do you check if port 80 is open?
+Ans: ssh | grep -i port 80
 
 How do you securely log in to a remote host with user admin?
+Ans: ssh username@server2ip 
 
 How do you copy a file from local to a remote server over SSH?
+Ans: scp /test.txt username@server2ip:/home/data
 
 How do you copy a file from remote to local?
+Ans: scp username@server2ip:/home/data /test.txt
 
 How do you enable passwordless SSH between two AWS Linux servers?
+Ans: steps: ssh-keygen
+            here public and private key ll be generated, we should use public key
+            id_rsa.pub
+            ssh-keygen -t rsa
+you ll find .ssh file there
+cd .ssh
+ls -lrt
+cat id_rsa.pub
+you ll find a key you should copy here
+and go to server2
+and do 
+cd .ssh
+ls -lrt you ll find authorized keys here 
+vi authorised_keys
+paste the public key here
+and save
 
 How do you use curl to fetch only headers from a URL?
+Ans: curl 
 
 How do you download a tarball with a custom filename using wget?
 
