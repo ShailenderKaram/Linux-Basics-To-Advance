@@ -61,7 +61,7 @@ You want to move multiple reports into /archive. How?
 Ans: tar -cvf multiple reports.tar /archive
 
 How do you find all files modified in the last 24 hours in /var/log?
-Ans: find . /var/log -name f -mtime '1' 
+Ans: find . /var/log -type f -mtime '1' 
 
 Chapter 3: Text Processing (Q21–Q30)
 
@@ -78,13 +78,16 @@ How do you continuously watch logs for new entries in real time?
 Ans: tail -f filename
 
 How do you find lines containing “ERROR” in app.log ignoring case?
-find -i "ERROR" app.log
+find -iname "ERROR" app.log
 
 How do you count the number of “Failed password” attempts in /var/log/secure?
+Ans: cat -c "Failed password" /var/log/secure (or) grep -c "Failed password" /var/log/secure
 
 How do you exclude commented lines (#) when viewing /etc/fstab?
+Ans: 
 
 You want to replace “dev” with “prod” in a config file. Which command works?
+Ans: sed 's/dev/prod/d' config file
 
 How do you delete all lines containing “DEBUG” in a log file?
 
