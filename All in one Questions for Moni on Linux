@@ -312,45 +312,72 @@ A reboot happened and /data didn’t mount. What’s your fix?
 Ans: 
 
 How do you check filesystem type of /dev/sdb1?
+Ans: df -T
 
 Chapter 11: ACLs (Q84–Q87)
 
 How do you give user john rw access to /data/file.txt?
+Ans: setfacl -m john:rw /data/file.txt
 
 How do you set default ACL so all new files in /shared are accessible by qa group?
+Ans:
 
 A user complains ACLs are not working after reboot. What do you check first?
+Ans: systemctl status acl
+     systemclt start & then enable
 
 How do you remove all ACL entries from a file?
+Ans: setfacl -b 
 
 Chapter 12: Swap Management (Q88–Q91)
 
 How do you check swap usage?
+Ans: free -m
 
 How do you create a 4GB swap file?
+Ans: dd if=/dev/zero of=/swapfile bs=1m count=4068 
 
 How do you permanently enable a swap file?
+Ans: give entry in /etc/fstab
+     vi /etc/fstab
+/swapfile swap swap defaults 0  0
+:wq!
 
 How do you adjust swappiness to 10?
+Ans: cat /proc/sysconfig/sysstat/swappiness
+     vi /sysconfig/swappiness
+      swappiness=10
+:wq!
 
 Chapter 13: Users, Groups, & sudo (Q92–Q96)
 
 How do you create user ravi with a home directory?
+Ans: useradd ravi
 
 How do you add ravi to group devops?
+Ans: useradd -g devops ravi (this is adding primary group)
+     usermod -aG devops ravi (this is adding to secondary group)
 
 How do you lock a user account?
+Ans: usermod -L username
 
 How do you give a user permission to reboot the server without password?
+Ans: you need to go to the user configuration file and give reboot access
+username ALL=ALL NOPASSWD /reboot
 
 How do you check sudo access of a user?
-
+Ans: normal user will not have root privileges
+'whoami'
 Chapter 14: SAR (System Activity Report) (Q97–Q100)
 
 How do you check per-core CPU usage every 5 seconds?
+Ans: sar -U 5 0
 
 How do you find which disk had high I/O yesterday at 2 PM?
+Ans: sar -d /var/log/sa10 -s 02:00:00 -e 02:00:20
 
 How do you monitor network errors with sar?
+Ans: sar -n 5 5 (checking for every 5sec for 5 intervals)
 
 How do you change SAR log retention to 30 days and store logs in /data/sarlogs?
+Ans: vi /var/log/sa
