@@ -2,20 +2,25 @@ CHAPTER 1: Basics
 
 Q: How would you find the exact option in ls that shows hidden files if you forgot it?
 Use Case: You’re checking for .ssh or .git hidden directories and can’t recall the flag.
+Ans: ls -a | grep -i .ssh (or) ls -a | grep -i .git
 
 Q: If you are lost in deep directories, which command shows your exact location?
 Use Case: While debugging scripts in /etc subfolders, you need the absolute path for copy-pasting into configs.
+Ans: pwd
 
 Q: How do you quickly return to the last directory you visited?
 Use Case: You’re moving back and forth between /etc/nginx/ and /var/www/html/ to debug webserver issues.
+Ans: cd -
 
 Q: How can you re-run a complex command you executed yesterday without typing it again?
 Use Case: You used a long tar command to back up logs and now need it again.
+Ans: !history number eg: !20
 
 CHAPTER 2: File & Directory Management
 
 Q: How would you create a new empty script file to start coding immediately?
 Use Case: A deployment engineer needs to create deploy.sh before writing steps.
+Ans: touch test.sh
 
 Q: Before editing /etc/ssh/sshd_config, how do you safely create a backup copy?
 Use Case: Prevent downtime if your SSH changes break remote logins.
