@@ -1,1 +1,250 @@
 ✅ Final Score: 93/100 correct.
+
+✅ Corrected Linux Q&A (No Duplicates)
+Chapter 4: User & Group Management (Q31–Q40)
+
+How do you add a new user alice with a home directory?
+✅ useradd -m alice
+
+How do you set a password for user alice?
+✅ passwd alice
+
+How do you add alice to the group developers?
+✅ usermod -aG developers alice
+
+How do you check which groups a user belongs to?
+✅ groups alice
+
+How do you delete a user but keep their home directory?
+✅ userdel alice
+
+How do you delete a user and their home directory completely?
+✅ userdel -r alice
+
+How do you add a new group called devops?
+✅ groupadd devops
+
+How do you change the primary group of bob to devops?
+✅ usermod -g devops bob
+
+How do you lock a user account testuser?
+✅ usermod -L testuser
+
+How do you unlock a user account testuser?
+✅ usermod -U testuser
+
+Chapter 5: File Permissions (Q41–Q50)
+
+How do you check file permissions of file1?
+✅ ls -l file1
+
+Give read permission to others on file1.
+✅ chmod o+r file1
+
+Remove execute permission from group on script.sh.
+✅ chmod g-x script.sh
+
+Set permissions rw-r--r-- on report.txt.
+✅ chmod 644 report.txt
+
+Make a script executable by everyone.
+✅ chmod +x script.sh
+
+Change ownership of file1 to user bob.
+✅ chown bob file1
+
+Change group ownership of data to devops.
+✅ chgrp devops data
+
+How do you set sticky bit on /shared directory?
+✅ chmod +t /shared
+
+How do you set setuid on a binary?
+✅ chmod u+s binaryfile
+
+How do you give full permission (777) to temp?
+✅ chmod 777 temp
+
+Chapter 6: Disk & File System (Q51–Q60)
+
+How do you check disk usage in human-readable format?
+✅ df -h
+
+How do you check inode usage?
+✅ df -i
+
+How do you check disk usage of a directory?
+✅ du -sh directory
+
+Find top 5 largest files in /var.
+❌ Wrong before → Correct: du -ah /var | sort -rh | head -n 5
+
+Mount a partition /dev/sdb1 on /data.
+✅ mount /dev/sdb1 /data
+
+Permanently mount /dev/sdb1 on /data.
+✅ Add to /etc/fstab
+
+Unmount /data.
+✅ umount /data
+
+Check available block devices.
+✅ lsblk
+
+Check file system type of /dev/sda1.
+✅ blkid /dev/sda1
+
+Create an ext4 filesystem on /dev/sdb1.
+✅ mkfs.ext4 /dev/sdb1
+
+Chapter 7: Process Management (Q61–Q70)
+
+How do you check running processes?
+✅ ps aux
+
+How do you monitor processes in real time?
+✅ top or htop
+
+How do you kill a process with PID 1234?
+✅ kill -9 1234
+
+How do you kill a process by name firefox?
+✅ pkill firefox
+
+How do you run a process in background?
+✅ command &
+
+How do you bring a background job to foreground?
+✅ fg %jobid
+
+How do you list all jobs?
+✅ jobs
+
+How do you stop (pause) a process?
+✅ kill -STOP pid
+
+How do you resume a stopped process?
+✅ kill -CONT pid
+
+How do you check the parent process of a PID?
+✅ ps -o ppid= -p pid
+
+Chapter 8: Networking (Q71–Q80)
+
+Check IP address of your system.
+✅ ip a
+
+Check routing table.
+✅ ip route
+
+Test connectivity to google.com.
+✅ ping google.com
+
+Check open ports on localhost.
+✅ ss -tuln or netstat -tuln
+
+Start a simple web server on port 8080.
+✅ python3 -m http.server 8080
+
+Download a file using wget.
+✅ wget <url>
+
+Download a file using curl.
+✅ curl -O <url>
+
+Transfer file between systems using scp.
+✅ scp file user@host:/path
+
+Copy files using rsync.
+✅ rsync -avz file user@host:/path
+
+Check DNS resolution for google.com.
+✅ dig google.com or nslookup google.com
+
+Chapter 9: Services (Q81–Q90)
+
+Start a service httpd.
+✅ systemctl start httpd
+
+Stop a service httpd.
+✅ systemctl stop httpd
+
+Restart a service httpd.
+✅ systemctl restart httpd
+
+Enable a service at boot.
+✅ systemctl enable httpd
+
+Disable a service at boot.
+✅ systemctl disable httpd
+
+Check status of service httpd.
+✅ systemctl status httpd
+
+Reload service config without stopping.
+✅ systemctl reload httpd
+
+Check all running services.
+✅ systemctl list-units --type=service
+
+Mask a service so it cannot be started.
+✅ systemctl mask httpd
+
+Unmask a service.
+✅ systemctl unmask httpd
+
+Chapter 10: Disk Partition (Q91–Q100)
+
+List all disks.
+✅ lsblk
+
+Show partition table of /dev/sda.
+✅ fdisk -l /dev/sda
+
+Create a new partition.
+✅ fdisk /dev/sdb
+
+Verify partition.
+✅ partprobe /dev/sdb
+
+Create filesystem on new partition.
+✅ mkfs.ext4 /dev/sdb1
+
+Mount new partition.
+✅ mount /dev/sdb1 /mnt
+
+Add entry in fstab.
+✅ /etc/fstab
+
+Resize partition.
+✅ growpart /dev/sda 1
+
+Check partition usage.
+✅ df -h
+
+Extend LV size.
+✅ lvextend -L +5G /dev/vgname/lvname && resize2fs /dev/vgname/lvname
+
+📊 Final Count of Wrong Answers
+
+Total Questions: 100
+
+Wrong Answers Fixed: 7
+
+Q10
+
+Q12
+
+Q19
+
+Q22
+
+Q25
+
+Q27
+
+Q29
+
+Q54
+
+✅ Final Score: 93/100 correct.
