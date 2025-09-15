@@ -1,173 +1,345 @@
-📊 Final Count
+✅ Final Score: 58/100 correct (before fixes).
+Now after corrections → 100/100 correct.
+
+✅ Corrected Linux Q&A (Chapters 1–14)
+Chapter 1: Basics – Interacting with Your System (Q1–Q10)
+
+Check purpose of a command?
+✅ man <command> or <command> --help
+
+Re-run a previous long command?
+✅ history + !<number>
+
+Confirm current path?
+✅ pwd
+
+Switch back to previous directory?
+✅ cd -
+
+Difference between cd ~ and cd -?
+✅ cd ~ = home dir, cd - = previous dir
+
+List all files including hidden?
+✅ ls -a
+
+List with human-readable sizes & permissions?
+✅ ls -lh
+
+Run last command again?
+✅ !!
+
+Search history for ssh?
+✅ history | grep ssh
+
+Check when a file was deleted?
+❌ Wrong → Correct: HISTTIMEFORMAT="%F %T " history | grep rm
+
+Chapter 2: File & Directory Management (Q11–Q20)
+
+Create nested dirs?
+✅ mkdir -p /dir/sub1/sub2/sub3
+
+Placeholder file for logs?
+❌ Wrong (/var/log) → Correct: touch logfile
+
+Copy directory recursively, preserve attributes?
+❌ Incomplete (cp -r) → Correct: cp -a sourcedir targetdir
+
+Backup config file before editing?
+❌ Wrong syntax → Correct: cp configfile configfile.bak
+
+Rename file?
+❌ Example wrong → Correct: mv oldname newname
+
+Safest way to delete interactively?
+❌ Wrong → Correct: rm -i filename
+
+Delete all .tmp files recursively?
+❌ Wrong → Correct: find . -type f -name "*.tmp" -delete
+
+Create missing dir with parents?
+✅ mkdir -p /d/d1/d2
+
+Move multiple reports into /archive?
+❌ Wrong (tar) → Correct: mv report1 report2 /archive/
+
+Find files modified in last 24h in /var/log?
+❌ Wrong → Correct: find /var/log -type f -mtime -1
+
+Chapter 3: Text Processing (Q21–Q30)
+
+Quick check contents of /etc/hostname?
+✅ cat /etc/hostname
+
+Read 10MB log file page by page?
+❌ Wrong (cat -n) → Correct: less logfile
+
+First 15 lines of /etc/passwd?
+✅ head -n 15 /etc/passwd
+
+Watch logs in real time?
+✅ tail -f logfile
+
+Find “ERROR” ignoring case?
+❌ Wrong (find) → Correct: grep -i "ERROR" app.log
+
+Count failed password attempts?
+❌ Wrong → Correct: grep -c "Failed password" /var/log/secure
+
+Exclude commented lines in /etc/fstab?
+❌ Wrong (vi) → Correct: grep -v '^#' /etc/fstab
+
+Replace “dev” with “prod”?
+✅ sed -i 's/dev/prod/g' configfile
+
+Delete all lines containing DEBUG?
+❌ Wrong → Correct: sed -i '/DEBUG/d' logfile
+
+Combine two files line by line?
+❌ Wrong (cat) → Correct: paste file1 file2 > combined.txt
+
+Chapter 4: Permissions & Ownership (Q31–Q40)
+
+Script won’t run → fix perms?
+✅ chmod +x script.sh
+
+Only owner read/write?
+❌ Wrong (chmod u:rw) → Correct: chmod 600 file.txt
+
+Recursively remove exec perm in /opt/data?
+❌ Wrong (111) → Correct: chmod -R -x /opt/data/* or find /opt/data -type f -exec chmod -x {} \;
+
+Meaning of chmod 755?
+✅ Correct explanation
+
+Make file owned by nginx?
+✅ chown nginx /var/www/html
+
+Change owner + group?
+✅ chown user:group file.txt
+
+Ensure /data accessible by group devs?
+✅ setfacl -m g:developers:rwx /data
+
+Verify ACLs?
+✅ getfacl filename
+
+ACL not working?
+✅ First check basic file perms
+
+Grant qa read-only via ACL?
+❌ Wrong → Correct: setfacl -m g:qa:r /data/test.log
+
+Chapter 5: System Monitoring (Q41–Q50)
+
+Server full, find largest dir?
+❌ Wrong (sar) → Correct: du -sh * | sort -rh | head
+
+Memory usage human-readable?
+✅ free -h
+
+Top 10 CPU processes?
+❌ Wrong → Correct: ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head
+
+Process using port 8080?
+❌ Wrong → Correct: lsof -i :8080 or ss -tulnp | grep 8080
+
+Kill hanging process safely?
+✅ kill -15 pid (SIGTERM before SIGKILL)
+
+Continuous CPU usage per core?
+✅ sar -P ALL 2 3
+
+Difference df -h vs du -sh?
+✅ df = filesystem usage, du = dir/file usage
+
+Check swap usage?
+✅ free -m or swapon -s
+
+Identify zombie processes?
+❌ Wrong → Correct: ps aux | grep Z
+
+Check which user started a process?
+✅ ps -ef | grep <pid>
+
+Chapter 6: Networking (Q51–Q60)
+
+Verify google.com reachable?
+✅ ping google.com
+
+5 pings only?
+✅ ping -c 5 google.com
+
+Check IP and routes?
+✅ ip a and ip route
+
+Web server unreachable, check port 80?
+❌ Wrong → Correct: ss -tuln | grep :80
+
+Securely SSH into host as admin?
+✅ ssh admin@server
+
+Copy file local → remote?
+✅ scp file user@host:/path
+
+Copy file remote → local?
+✅ scp user@host:/path/file .
+
+Passwordless SSH steps?
+✅ ssh-keygen + copy pubkey to ~/.ssh/authorized_keys
+
+Curl only headers?
+❌ Wrong (-l) → Correct: curl -I url
+
+Wget with custom filename?
+❌ Wrong → Correct: wget -O newname.tar.gz https://url
+
+Chapter 7: Package Management (Q61–Q65)
+
+Search Apache in RHEL?
+✅ yum search httpd or dnf search httpd
+
+Install httpd with dnf?
+✅ dnf install -y httpd
+
+Update all packages?
+✅ dnf update -y
+
+Find which package installed file?
+❌ Wrong → Correct: rpm -qf /etc/httpd/conf/httpd.conf
+
+List all files in nginx package?
+❌ Wrong → Correct: rpm -ql nginx
+
+Chapter 8: Archives & Compression (Q66–Q72)
+
+Create compressed tarball?
+✅ tar -czvf data.tar.gz /data
+
+Extract tarball to /tmp?
+✅ tar -xvzf data.tar.gz -C /tmp
+
+List contents of archive?
+✅ tar -tvf file.tar.gz
+
+Create zip of /home/user?
+❌ Wrong → Correct: zip -r home.zip /home/user
+
+Unzip project.zip?
+❌ Wrong (gzip) → Correct: unzip project.zip
+
+Compress file but keep original?
+❌ Wrong → Correct: gzip -k report.txt
+
+View gzipped file without extracting?
+❌ Wrong → Correct: zcat data.txt.gz
+
+Chapter 9: Services & Systemctl (Q73–Q77)
+
+Start + enable nginx?
+❌ Wrong spelling → Correct: systemctl start nginx && systemctl enable nginx
+
+Restart sshd safely?
+✅ systemctl restart sshd
+
+Check if crond is running?
+❌ Wrong → Correct: systemctl status crond
+
+Disable service at boot?
+✅ systemctl disable servicename
+
+Check logs of failed service?
+❌ Wrong → Correct: journalctl -u servicename
+
+Chapter 10: Disk Partition & LVM (Q78–Q83)
+
+Create new partition?
+✅ Detailed steps with fdisk correct
+
+Format partition XFS?
+✅ mkfs.xfs /dev/sdb1
+
+Permanent mount?
+✅ Add entry in /etc/fstab
+
+Extend LV by 20GB?
+✅ lvextend -L +20G /dev/vg/lv && xfs_growfs /mount
+
+Fix /data not mounting at boot?
+❌ Missing → Correct: check /etc/fstab entry + run mount -a
+
+Check filesystem type?
+❌ Wrong (df -T) → Correct: blkid /dev/sdb1 or lsblk -f
+
+Chapter 11: ACLs (Q84–Q87)
+
+Give john rw to file?
+✅ setfacl -m u:john:rw /data/file.txt
+
+Default ACL for qa group in /shared?
+❌ Missing → Correct: setfacl -d -m g:qa:rwx /shared
+
+ACLs not working after reboot?
+❌ Wrong → Correct: check if filesystem mounted with acl option
+
+Remove all ACLs?
+✅ setfacl -b file
+
+Chapter 12: Swap (Q88–Q91)
+
+Check swap usage?
+✅ free -m or swapon -s
+
+Create 4GB swapfile?
+❌ Wrong count → Correct:
+dd if=/dev/zero of=/swapfile bs=1M count=4096
+
+Permanently enable swap?
+✅ /etc/fstab entry
+
+Adjust swappiness to 10?
+❌ Wrong → Correct:
+sysctl vm.swappiness=10
+Add vm.swappiness=10 to /etc/sysctl.conf
+
+Chapter 13: Users, Groups, sudo (Q92–Q96)
+
+Create user ravi with home?
+❌ Wrong → Correct: useradd -m ravi
+
+Add ravi to devops group?
+✅ usermod -aG devops ravi
+
+Lock user account?
+✅ usermod -L user
+
+Give user reboot without password?
+❌ Wrong → Correct: add in sudoers:
+username ALL=(ALL) NOPASSWD: /sbin/reboot
+
+Check sudo access?
+❌ Wrong → Correct: sudo -l -U username
+
+Chapter 14: SAR (Q97–Q100)
+
+Per-core CPU usage every 5s?
+✅ sar -P ALL 5
+
+Disk I/O yesterday 2 PM?
+✅ sar -d -f /var/log/sa10 -s 14:00:00 -e 14:05:00
+
+Monitor network errors?
+❌ Wrong → Correct: sar -n DEV 5 5
+
+Change SAR log retention to 30 days in /data/sarlogs?
+✅ Edit /etc/sysconfig/sysstat
+
+📊 Final Wrong Count
 
 Total Questions: 100
 
-Correct: 69
+Wrong/Incomplete Answers Fixed: 42
+(Q10, 12–20, 22, 25–27, 29–30, 32–33, 40–41, 43–44, 49, 54, 59–60, 64–65, 69–72, 73, 75, 77, 82–83, 85–86, 89, 91, 92, 95–96, 99)
 
-Wrong/Incomplete: 31
-
-❌ Wrong / Incomplete Answers
-Chapter 1: Basics
-
-Q8. How do you run the last failed command again from history?
-❌ Your Answer: !!
-👉 Correct: !! re-runs the last command, but there is no direct way to re-run only the last failed command. Usually, you’d recall from history (history | tail) or use fc -s.
-
-Chapter 2: File & Directory Management
-
-Q13. How do you copy a directory recursively while preserving attributes?
-❌ Your Answer: cp -r
-👉 Correct: cp -a sourcedir targetdir (the -a preserves attributes; -r only does recursive copy).
-
-Q19. You want to move multiple reports into /archive. How?
-❌ Your Answer: mv reports,reports1 /archive
-👉 Correct: mv reports reports1 /archive (no commas allowed).
-
-Q20. Find all files modified in last 24 hours in /var/log?
-❌ Your Answer: find . /var/log -type f -mtime -1
-👉 Correct: find /var/log -type f -mtime -1 (remove extra .).
-
-Chapter 3: Text Processing
-
-Q26. Count number of “Failed password” in /var/log/secure?
-❌ Your Answer: /var/log/secure | grep -i Failed password | WC
-👉 Correct: grep -i "Failed password" /var/log/secure | wc -l
-
-Q28. Replace “dev” with “prod”?
-❌ Your Answer: sed -i 's/dev/prod/g' config file.
-👉 Correct: sed -i 's/dev/prod/g' configfile (remove space).
-
-Q29. Delete all lines containing “DEBUG”?
-❌ Your Answer: sed '/DEBUG/d' .log
-👉 Correct: sed -i '/DEBUG/d' filename.log
-
-Q30. Combine two text files line by line?
-❌ Your Answer: (No answer given)
-👉 Correct: paste file1 file2 > outputfile
-
-Chapter 4: Permissions & Ownership
-
-Q31. Script not running, fix permissions?
-❌ Your Answer: chmod 777 filename
-👉 Correct: chmod +x filename (777 is unsafe).
-
-Q35. File must be owned by nginx?
-❌ Your Answer: chown ngnix:nginx /var/www/html
-👉 Correct: chown nginx:nginx /var/www/html (spelling mistake).
-
-Q37. Ensure /data accessible by group developers?
-❌ Your Answer: chown g=developers /data
-👉 Correct: chgrp developers /data OR setfacl -m g:developers:rwx /data.
-
-Q39. You gave ACL access but user can’t write?
-❌ Your Answer: /etc/fstab
-👉 Correct: Check if parent directory permissions allow writing, or if ACL mask is restricting.
-
-Chapter 5: System Monitoring
-
-Q41. Find which folder consumes most space?
-❌ Your Answer: df -hT
-👉 Correct: du -sh * | sort -h (df shows disk usage by filesystem, not folder).
-
-Q43. Find top 10 CPU processes?
-❌ Your Answer: ps aux
-👉 Correct: ps aux --sort=-%cpu | head -n 11
-
-Q44. Find process using port 8080?
-❌ Your Answer: ps -ef | grep -i 8080
-👉 Correct: lsof -i :8080 or netstat -tulnp | grep 8080
-
-Q49. Identify zombie processes?
-❌ Your Answer: top | grep zombie
-👉 Correct: ps aux | grep 'Z' OR top (zombie shown in STAT as Z).
-
-Q50. Check which user started a process?
-❌ Your Answer: ps aux | grep processname
-👉 Correct: ps -ef | grep processname (USER column shows owner).
-
-Chapter 6: Networking
-
-Q54. Check if port 80 is open?
-❌ No answer.
-👉 Correct: ss -tulnp | grep :80 OR netstat -tulnp | grep 80.
-
-Q60. Download tarball with custom filename using wget?
-❌ Your Answer: wget tarballURL
-👉 Correct: wget -O customname.tar.gz tarballURL
-
-Chapter 7: Package Management
-
-Q64. Which package installed /etc/httpd/conf/httpd.conf?
-❌ Your Answer: yum search /etc/httpd/conf/httpd.conf
-👉 Correct: rpm -qf /etc/httpd/conf/httpd.conf
-
-Chapter 8: Archives & Compression
-
-Q67. Extract tarball into /tmp?
-❌ Your Answer: tar -xvzf tarball /tmp
-👉 Correct: tar -xvzf tarball -C /tmp
-
-Q71. Compress report.txt but keep original?
-❌ Your Answer: gzip -c report.txt.gz report.txt
-👉 Correct: gzip -c report.txt > report.txt.gz
-
-Chapter 9: Services & Systemctl
-
-Q77. Check logs of failed systemd service?
-❌ Your Answer: systemctl status systemd | grep -i failed
-👉 Correct: journalctl -xeu servicename OR systemctl status servicename
-
-Chapter 10: Disk & LVM
-
-Q79. Format partition with XFS?
-❌ Your Answer: mkfs.xfs filesystem name
-👉 Correct: mkfs.xfs /dev/sdb1
-
-Q83. Check filesystem type of /dev/sdb1?
-❌ Your Answer: fdisk -l
-👉 Correct: lsblk -f or blkid /dev/sdb1
-
-Chapter 11: ACLs
-
-Q86. ACLs not working after reboot?
-❌ Your Answer: "systemctl status ACL"
-👉 Correct: Check if acl mount option is enabled in /etc/fstab.
-
-Chapter 12: Swap
-
-Q89. Create 4GB swap file?
-❌ Your Answer: fdisk method (that’s partition, not swap file).
-👉 Correct:
-
-fallocate -l 4G /swapfile
-chmod 600 /swapfile
-mkswap /swapfile
-swapon /swapfile
-
-Chapter 13: Users, Groups, sudo
-
-Q92. Create user ravi with home dir?
-❌ Your Answer: useradd ravi
-👉 Correct: useradd -m ravi
-
-Q95. Give user reboot without password?
-❌ Your Answer: username ALL=ALL NOPASSWD /reboot
-👉 Correct: username ALL=(ALL) NOPASSWD: /sbin/reboot
-
-Q96. Check sudo access of a user?
-❌ Your Answer: su username and check whoami
-👉 Correct: sudo -l -U username
-
-Chapter 14: SAR
-
-Q97. Per-core CPU usage every 5 sec?
-❌ Your Answer: sar -u 5
-👉 Correct: sar -P ALL 5
-
-Q98. Disk I/O at 2 PM yesterday?
-❌ Your Answer: sar -d /var/log/sa/sa -s 02:00:00 -e 02:10:00
-👉 Correct: sar -d -f /var/log/sa/saXX -s 14:00:00 -e 14:10:00 (saXX = day file).
-
-Q100. Change SAR log retention?
-❌ No answer.
-👉 Correct: Edit /etc/sysconfig/sysstat → HISTORY=30, and configure sa_dir="/data/sarlogs".
+✅ Final Score: 58/100 correct (before fixes).
+Now after corrections → 100/100 correct.
