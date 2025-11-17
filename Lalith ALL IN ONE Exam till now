@@ -1,0 +1,643 @@
+===============================
+CHAPTER 1: Basics (Q1–Q10)
+===============================
+
+Q1. How do you quickly check the purpose of a command you forgot an option for?
+A. help ls
+B. ls -h
+C. info ls
+D. man ls
+
+Q2. You ran a long command yesterday and want to re-run it today without retyping. How?
+A. run 77
+B. exec 77
+C. !77
+D. recall 77
+
+Q3. After navigating deep into directories, how do you confirm your current path?
+A. dir
+B. pwd
+C. locate
+D. path
+
+Q4. How do you switch back to the previous directory?
+A. cd ..
+B. cd /
+C. cd -
+D. cd ~
+
+Q5. What’s the difference between cd ~ and cd -?
+A. cd ~ goes to root; cd - opens last file
+B. cd ~ is previous directory; cd - is home
+C. cd ~ is user home; cd - is previous directory
+D. Both take you to home directory
+
+Q6. How do you list all files including hidden ones?
+A. ls -h
+B. ls -d
+C. ls -l
+D. ls -a
+
+Q7. How do you list files with human-readable sizes and permissions?
+A. ls -s
+B. ls -lh
+C. ls -ha
+D. ls -p
+
+Q8. How do you run the last failed command again?
+A. !!
+B. ?
+C. retry
+D. exec
+
+Q9. How do you search for commands in history containing ssh?
+A. which ssh
+B. find ssh
+C. history | grep -i ssh
+D. search ssh
+
+Q10. If a junior admin deletes a file, how can you find when it happened using history?
+A. history shows exact timestamps
+B. You cannot find when the file was deleted
+C. use lastlog
+D. use stat
+
+===============================
+CHAPTER 2: File & Directory Management (Q11–Q20)
+===============================
+
+Q11. How do you create multiple nested directories at once?
+A. mkdir /a/b/c
+B. mkdir -n /a/b/c
+C. mkdir -P /a/b/c
+D. mkdir -multi /a/b/c
+
+Q12. You need a placeholder file for logs. Which command is best?
+A. vi /var/log
+B. nano /var/log
+C. touch /var/log/file
+D. cat > /var/log
+
+Q13. How do you copy a directory recursively while preserving attributes?
+A. cp -l
+B. cp -r
+C. cp -v
+D. cp -H
+
+Q14. How do you back up a config file before editing?
+A. cp file.bak file
+B. cp config config.bak
+C. mv config config.bak
+D. cp -r config config.old
+
+Q15. You downloaded a file with the wrong name. How do you rename it?
+A. rn name1 name2
+B. mv name1 name2
+C. cp name1 name2
+D. edit name1 name2
+
+Q16. What is the safest way to delete files interactively?
+A. rm -f
+B. rm -i
+C. rm -r
+D. rm -d
+
+Q17. How do you delete all .tmp files in current directory and subdirectories?
+A. rm -rf .tmp
+B. rm -r "*.temp"
+C. rm -r '*.tmp'
+D. delete -tmp
+
+Q18. An app fails because a required directory is missing. How do you create it along with parents?
+A. mkdir dir
+B. mkdir -deep dir
+C. mkdir -P dir/sub1/sub2
+D. md dir
+
+Q19. You want to move multiple reports into /archive. How?
+A. tar -cvf reports.tar /archive
+B. mv report* /archive
+C. copy reports /archive
+D. scp reports /archive
+
+Q20. How do you find all files modified in the last 24 hours in /var/log?
+A. find /var/log -mtime 0
+B. find . -type f
+C. find /var/log -type f -mtime -1
+D. search -mtime 1
+
+===============================
+CHAPTER 3: Text Processing (Q21–Q30)
+===============================
+
+Q21. How do you quickly check the contents of /etc/hostname?
+A. open /etc/hostname
+B. ls /etc/hostname
+C. cat /etc/hostname
+D. less /etc/hostname
+
+Q22. You need to read a 10MB log file page by page. Which command do you use?
+A. cat file
+B. less file
+C. cat -n file
+D. head file
+
+Q23. How do you check the first 15 lines of /etc/passwd?
+A. head -n 15 /etc/passwd
+B. cat -n 15 /etc/passwd
+C. less -n 15 /etc/passwd
+D. tail -15 /etc/passwd
+
+Q24. How do you continuously watch logs for new entries?
+A. tail -c
+B. cat -f
+C. tail -f logfile
+D. watch logfile
+
+Q25. How do you find lines containing “ERROR” ignoring case?
+A. find "ERROR" logfile
+B. cat logfile | find ERROR
+C. grep -i "ERROR" logfile
+D. search ERROR logfile
+
+Q26. How do you count the number of “Failed password” attempts?
+A. wc -l /var/log/secure
+B. cat -c "Failed password"
+C. grep -c "Failed password" /var/log/secure
+D. count "Failed password"
+
+Q27. How do you exclude commented lines (#) when viewing /etc/fstab?
+A. grep -v '^#' /etc/fstab
+B. cat /etc/fstab
+C. rm '#'
+D. delete '#'
+
+Q28. How do you replace “dev” with “prod” in a file?
+A. sed 'dev→prod' file
+B. replace dev prod file
+C. sed 's/dev/prod/g' file
+D. mv dev prod file
+
+Q29. How do you delete all lines containing “DEBUG”?
+A. sed '/DEBUG/d' logfile
+B. rm DEBUG logfile
+C. delete DEBUG logfile
+D. sed 's/DEBUG/d' logfile
+
+Q30. How do you combine two files line-by-line?
+A. join file1 file2
+B. cat file1 file2 > file.txt
+C. merge file1 file2
+D. join file1 > file2
+
+===============================
+CHAPTER 4: Permissions & Ownership (Q31–Q40)
+===============================
+
+Q31. You wrote a script but can’t run it. What do you check?
+A. file owner
+B. permissions for execute bit
+C. file location
+D. file extension
+
+Q32. How do you set permissions so only the owner can read and write a file?
+A. chmod 777 file
+B. chmod 644 file
+C. chmod 600 file
+D. chmod 400 file
+
+Q33. How do you recursively remove execute permission from all files in /opt/data?
+A. chmod -R 111 /opt/data
+B. chmod -R -x /opt/data
+C. chmod -R a-x /opt/data
+D. chmod -exe /opt/data
+
+Q34. What does chmod 755 mean?
+A. Everyone full access
+B. Owner rwx, group rx, others rx
+C. Owner rw, group rw, others rw
+D. Owner rx, group rwx, others rw
+
+Q35. A file must be owned by nginx. How do you fix ownership?
+A. chown nginx:nginx file
+B. own nginx file
+C. setown nginx file
+D. chmod nginx file
+
+Q36. How do you change both owner and group at once?
+A. chown owner: file
+B. chown owner:group file
+C. chmod owner:group file
+D. setfacl owner:group file
+
+Q37. You need /data accessible by group developers. How?
+A. chown developers /data
+B. chmod developers /data
+C. setfacl -m g:developers:rwx /data
+D. usermod -g developers /data
+
+Q38. How do you verify current ACLs applied?
+A. lsacl file
+B. aclshow file
+C. getfacl file
+D. viewacl file
+
+Q39. You gave ACL access, but user still can’t write. What do you check first?
+A. Disk usage
+B. Parent folder name
+C. Underlying permissions
+D. File size
+
+Q40. How do you grant group qa read-only access without changing ownership?
+A. chmod qa:r file
+B. setfacl -m g:qa:r file
+C. own qa:r file
+D. grant qa:r file
+
+===============================
+CHAPTER 5: System Monitoring (Q41–Q50)
+===============================
+
+Q41. A server is full. How do you find biggest folder?
+A. sar -A
+B. ls -l
+C. du -sh *
+D. df -h
+
+Q42. How do you check memory usage in human-readable format?
+A. free
+B. mem -h
+C. free -h
+D. top -h
+
+Q43. How do you find top 10 CPU consuming processes?
+A. ps -ef | grep -n
+B. top -o cpu
+C. ps aux --sort=-%cpu | head
+D. cpuusage -top10
+
+Q44. How do you find which process is using port 8080?
+A. ps -ef | grep 8080
+B. netstat -tulpn | grep 8080
+C. df -h | grep 8080
+D. top | grep 8080
+
+Q45. A process hangs. How do you kill it safely?
+A. kill -9 PID
+B. kill -HUP PID
+C. kill PID
+D. killall -f PID
+
+Q46. How do you continuously watch CPU usage per core?
+A. sar -U 2 3
+B. top -U
+C. mpstat 2 3
+D. cpuwatch
+
+Q47. Difference between df -h and du -sh?
+A. df shows folder; du shows disk
+B. du shows used space; df shows free space
+C. df shows partition usage; du shows directory size
+D. Both are same
+
+Q48. How do you check swap usage?
+A. free -m
+B. cat /swap
+C. swapon -k
+D. vmstat -s
+
+Q49. How do you identify zombie processes?
+A. top → state Z
+B. ps -ef | grep Z
+C. lsproc zombie
+D. pidof -z
+
+Q50. How do you check which user started a process?
+A. whoami
+B. ps -ef
+C. id user
+D. logread
+
+===============================
+CHAPTER 6: Networking (Q51–Q60)
+===============================
+
+Q51. How do you display your current IP address?
+A. cat /etc/ip
+B. ip addr show
+C. netstat ip
+D. ping localhost
+
+Q52. How do you test DNS resolution for a domain?
+A. netstat domain.com
+B. ip domain.com
+C. nslookup domain.com
+D. dnscheck domain.com
+
+Q53. How do you check if port 22 on a server is reachable?
+A. ping port 22
+B. nc -vz server 22
+C. ip server 22
+D. telnet -ping 22
+
+Q54. How do you display routing table information?
+A. route -n
+B. ping -route
+C. ipconfig /route
+D. tcpdump -route
+
+Q55. How do you verify if DNS is slow or unreachable?
+A. dig domain.com
+B. ping -dns
+C. ip dns check
+D. net dns lookup
+
+Q56. How do you list open ports on the server?
+A. ps -ef | grep ports
+B. nmap localhost
+C. netstat -tulpn
+D. route -ports
+
+Q57. How do you check active TCP connections?
+A. ls /proc/tcp
+B. tcpdump -active
+C. ss -tua
+D. trace tcp
+
+Q58. How do you check internet connectivity?
+A. nslookup google.com
+B. ping 8.8.8.8
+C. dig 8.8.8.8
+D. netstat -ping
+
+Q59. How do you disable a network interface?
+A. ifconfig down
+B. ip link down eth0
+C. net off eth0
+D. route disable eth0
+
+Q60. How do you view network interface speed?
+A. ip link speed
+B. ethtool eth0
+C. ifconfig speed
+D. ss -speed
+
+
+===============================
+CHAPTER 7: Services & Processes (Q61–Q70)
+===============================
+
+Q61. How do you check whether a service is running?
+A. journalctl running
+B. ps service
+C. systemctl status service
+D. service log
+
+Q62. How do you enable a service at boot time?
+A. service enable
+B. service auto
+C. systemctl enable service
+D. bootctl enable
+
+Q63. How do you restart a failed service?
+A. restart service
+B. systemctl restart service
+C. service -r
+D. reload service
+
+Q64. How do you check only active services?
+A. systemctl list-active
+B. service --active
+C. ps -svc
+D. logread services
+
+Q65. How do you follow logs of a specific service?
+A. systemctl log service
+B. cat /var/log/service
+C. journalctl -u service -f
+D. logwatch service
+
+Q66. How do you reload configuration without stopping the service?
+A. service restart
+B. systemctl reload service
+C. reloadctl
+D. systemctl fresh service
+
+Q67. How do you mask a service?
+A. systemctl hide service
+B. systemctl disable-now
+C. systemctl mask service
+D. service mask
+
+Q68. How do you check why a service failed at boot?
+A. service fail-log
+B. dmesg -fail
+C. journalctl -xe
+D. logs -error
+
+Q69. How do you kill a running background process by name?
+A. killby name
+B. killall name
+C. terminate name
+D. ps kill name
+
+Q70. How do you check number of running processes?
+A. ps -count
+B. top -all
+C. ps -ef | wc -l
+D. proc count
+
+
+===============================
+CHAPTER 8: Storage, Disk & FS (Q71–Q80)
+===============================
+
+Q71. How do you show disk usage for all mounted filesystems?
+A. du -h
+B. lsblk -d
+C. df -h
+D. fdisk -l
+
+Q72. How do you list disk partitions?
+A. ls -l /dev
+B. blkid
+C. fdisk -l
+D. du -l
+
+Q73. How do you see detailed block device info?
+A. blockinfo
+B. lsblk -f
+C. blkid -f
+D. du -f
+
+Q74. How do you mount a filesystem?
+A. nexmount device /path
+B. mount -o rw
+C. mount device /mnt/path
+D. dd if=device of=mount
+
+Q75. How do you unmount a filesystem?
+A. dismount /mnt
+B. umount /mnt
+C. mount --unmount /mnt
+D. unmountfs
+
+Q76. How do you check filesystem errors?
+A. fsck /dev/sda1
+B. blockchk /dev/sda1
+C. mountchk /dev/sda1
+D. devcheck /dev/sda1
+
+Q77. How do you extend an LVM logical volume?
+A. lvextend -L +5G LV
+B. extendlv LV 5G
+C. lvextend --disk 5G
+D. extend +5G LV
+
+Q78. After extending LV, how do you resize the filesystem?
+A. fsextend
+B. resizefs /dev/mapper
+C. resize2fs LV
+D. growfs LV
+
+Q79. How do you list all physical volumes in LVM?
+A. pvs
+B. listpv
+C. pvlist
+D. fdisk -pv
+
+Q80. How do you verify available free space in LVM VG?
+A. vgfree
+B. vgs
+C. lvfree
+D. lvs -free
+
+
+===============================
+CHAPTER 9: Tar, Backup, Compression (Q81–Q90)
+===============================
+
+Q81. How do you compress a folder using tar with gzip?
+A. zip -g folder
+B. gzip folder
+C. tar -czf file.tar.gz folder
+D. tar -xf folder
+
+Q82. How do you extract a .tar.gz file?
+A. unzip file.tar.gz
+B. tar -xzf file.tar.gz
+C. gunzip file
+D. untar -zip file
+
+Q83. How do you create a tar archive without compression?
+A. tar -cvf file.tar folder
+B. tar -czv file folder
+C. tar -xz file folder
+D. tar -fzip file folder
+
+Q84. How do you list contents of a tar archive without extracting?
+A. tar -cof file
+B. tar -atf file
+C. tar -tf file.tar
+D. ls file.tar
+
+Q85. You want to exclude node_modules folder while taking backup. How?
+A. tar -cvf backup.tar /app --skip node_modules
+B. tar --ignore node_modules
+C. tar -czf backup.tar.gz /app --exclude=node_modules
+D. tar -exclude=node_modules
+
+Q86. How do you compress a file using bzip2?
+A. compressbz file
+B. zip -bz file
+C. bzip2 file
+D. tar -bz2 file
+
+Q87. How do you extract a .zip file?
+A. unzip file.zip
+B. zip -e file.zip
+C. tar -xzf file.zip
+D. unarchive file.zip
+
+Q88. How do you verify integrity of tar file?
+A. tar -chk file.tar
+B. tar -zcheck file
+C. tar -tvf file.tar
+D. md5sum file.tar
+
+Q89. How do you create incremental backups with tar?
+A. tar -inc file
+B. tar -g snapshot.file -czf backup.tar.gz /data
+C. tar --increment /data
+D. tar -p /data
+
+Q90. How do you extract tar archive to specific directory?
+A. tar -change dir
+B. tar -xf file.tar -C /target
+C. tar -tf file.tar /target
+D. unzip -dir /target file.tar
+
+
+===============================
+CHAPTER 10: Shell Scripting (Q91–Q100)
+===============================
+
+Q91. How do you print output in a shell script?
+A. put
+B. show
+C. echo
+D. printline
+
+Q92. How do you capture command output into a variable?
+A. var = command
+B. variable(command)
+C. var=$(command)
+D. var:command
+
+Q93. Which symbol is used for conditions in if statements?
+A. <>
+B. ();
+C. []
+D. ##
+
+Q94. How do you check file existence in shell?
+A. if [-e file]
+B. if [ -e file ]
+C. if file.exist
+D. if exist file
+
+Q95. How do you take input from user in script?
+A. input user
+B. get user
+C. read user
+D. scan user
+
+Q96. How do you make a script executable?
+A. chmod 777 script
+B. chmod +x script
+C. exec script
+D. run script
+
+Q97. How do you loop through multiple items?
+A. for list in do
+B. foreach list
+C. for i in list; do ... done
+D. loop list do
+
+Q98. How do you exit a script with custom return code?
+A. stop code
+B. quit code
+C. exit 1
+D. return 1
+
+Q99. How do you append text to a file in shell scripting?
+A. echo text >> file
+B. write text > file
+C. cat text > file
+D. append text file
+
+Q100. How do you debug a bash script line by line?
+A. bash -d script.sh
+B. bash -trace script.sh
+C. bash -x script.sh
+D. debug script.sh
